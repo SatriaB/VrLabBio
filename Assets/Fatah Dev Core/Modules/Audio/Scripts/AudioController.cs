@@ -47,7 +47,7 @@ namespace FatahDev
             }
 
             // Create audio listener
-            CreateAudioListener();
+            //CreateAudioListener();
 
             AudioController.audioClips = audioClips;
 
