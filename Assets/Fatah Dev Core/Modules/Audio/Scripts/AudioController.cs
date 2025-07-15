@@ -76,7 +76,7 @@ namespace FatahDev
 
         private static void CreateAudioListener()
         {
-            if (audioListener != null)
+           /* if (audioListener != null)
                 return;
 
             // Create game object for listener
@@ -87,7 +87,7 @@ namespace FatahDev
             GameObject.DontDestroyOnLoad(listenerObject);
 
             // Add listener component to created object
-            audioListener = listenerObject.AddComponent<AudioListener>();
+            audioListener = listenerObject.AddComponent<AudioListener>();*/
         }
 
         public static Transform AttachAudioListener(Transform parentObject)
