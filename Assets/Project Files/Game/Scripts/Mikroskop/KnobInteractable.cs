@@ -20,12 +20,12 @@ namespace FatahDev
 			{
 				if (pullingInteractor != null)
 				{
+					DistanceInfo info = GetDistance(knobTransform.position);
+					Debug.Log(info.distanceSqr);
 					Transform pullTransform = pullingInteractor.GetAttachTransform(this).transform;
 					Quaternion pullRotation =  pullTransform.rotation;
 
 					knobTransform.Rotate(new Vector3(0.0f, pullRotation.y, 0.0f));
-
-					Debug.Log(pullRotation.ToString());
 				}
 			}
 		}
