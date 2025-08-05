@@ -1,0 +1,4 @@
+Additional Information:
+Font text: Medium, Size 16
+Gap antar Btn: 20
+Hover Btn START: Hex #192D6F

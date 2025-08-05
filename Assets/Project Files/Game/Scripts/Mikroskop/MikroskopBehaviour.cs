@@ -4,64 +4,56 @@ namespace FatahDev
 {
     public class MikroskopBehaviour : MonoBehaviour
     {
-        [SerializeField]
-        private Transform teleskopTransform;
+        [SerializeField] private Transform teleskopTransform;
 
-        [SerializeField]
-        private float speedRotate;
+        public Vector3 axisRotate = Vector3.up;
+        public float speedRotate = 100f;
+        public float snapAngle = 15f;
+        public bool snapOnRelease = true;
 
-        [SerializeField]
-        private Vector3 axisRotate;
+        private bool isDragging = false;
+        private Vector3 lastMousePos;
+        private float totalRotation = 0f;
 
-		private bool rotate = false;
-
-		private Quaternion[] snappedVectors;
-
-		private void Start()
-		{
-			snappedVectors = new Quaternion[]
-			{
-				new Quaternion(-17.279f, 0.0f, 0.0f, 0.0f),
-				new Quaternion(0.0f, 90.0f, -17.279f, 0.0f),
-				new Quaternion(17.279f, 180, 0.0f, 0.0f),
-				new Quaternion(0.0f, 270.0f, 17.279f, 0.0f)
-			};
-		}
-
-		private void Update()
-		{
+        private void Update()
+        {
             if (Input.GetMouseButtonDown(0))
             {
-				rotate = true;
-			}
+                if (IsPointerOver()) 
+                {
+                    isDragging = true;
+                    lastMousePos = Input.mousePosition;
+                }
+            }
 
-			if (rotate)
-			{
-				teleskopTransform.Rotate(axisRotate, Time.deltaTime * speedRotate);
-				teleskopTransform.rotation = Quaternion.Euler(teleskopTransform.rotation.eulerAngles.x, teleskopTransform.rotation.eulerAngles.y, teleskopTransform.rotation.eulerAngles.z);
-			}
-
-			if (Input.GetMouseButtonUp(0))
+            if (Input.GetMouseButton(0) && isDragging)
             {
-				//teleskopTransform.DOLocalRotate(SnappedVector(), 0.5f).SetEasing(Ease.Type.ExpoOut);
-				rotate = false;
-			}
-		}
+                Vector3 delta = Input.mousePosition - lastMousePos;
+                float angle = -delta.x * speedRotate;
+                teleskopTransform.Rotate(axisRotate, angle, Space.Self);
+                totalRotation += angle;
+                lastMousePos = Input.mousePosition;
+            }
 
-		private Quaternion SnappedVector()
-		{
-			Quaternion endValue;
-			float currentY = Mathf.Ceil(teleskopTransform.rotation.eulerAngles.y);
+            if (Input.GetMouseButtonUp(0) && isDragging)
+            {
+                if (snapOnRelease)
+                {
+                    float snapped = Mathf.Round(totalRotation / snapAngle) * snapAngle;
+                    float snapOffset = snapped - totalRotation;
 
-			endValue = currentY switch
-			{
-				>= 0 and 90 => snappedVectors[0],
-				>= 91 and 180 => snappedVectors[1],
-				>= 181 and 270 => snappedVectors[2],
-				_ => snappedVectors[3],
-			};
+                    teleskopTransform.Rotate(axisRotate, snapOffset, Space.Self);
+                    totalRotation = snapped;
+                }
 
-			return endValue;
-		}
-	}
+                isDragging = false;
+            }
+        }
+
+        private bool IsPointerOver()
+        {
+            // Optional: gunakan raycast atau collider check
+            return true;
+        }
+    }
 }

@@ -3,7 +3,127 @@ guid: 1f7ae01a130b73042a883527c1828853
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.006
+    second: {fileID: 2100000, guid: d6e6af80cc68c174a825acf8ec45e12d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.007
+    second: {fileID: 2100000, guid: 9853cca38a90db640ab664becb3e7379, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mikroskop Cahaya_1
+    second: {fileID: 2100000, guid: 4880db35080052e4da5c47baaeb246d0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mikroskop Cahaya_10
+    second: {fileID: 2100000, guid: cc9483ca55a28014e8c52b9183c2f050, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mikroskop Cahaya_11
+    second: {fileID: 2100000, guid: 67ad5f21561b7ca4c8061e7ee0763dc4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mikroskop Cahaya_12
+    second: {fileID: 2100000, guid: 64ac27c15e0f4a14aa8bd40b168d0268, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mikroskop Cahaya_13
+    second: {fileID: 2100000, guid: 647f81f9ad970bc48b776a38405581c7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mikroskop Cahaya_14
+    second: {fileID: 2100000, guid: 60ce7104bff631e40b8b32613d2bb73a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mikroskop Cahaya_15
+    second: {fileID: 2100000, guid: b60486ccbc9cc4f43930bc692ee4d34e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mikroskop Cahaya_16
+    second: {fileID: 2100000, guid: b88b279ebabcbad4a952b251e1544d02, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mikroskop Cahaya_17
+    second: {fileID: 2100000, guid: 6e811702c99e8dd4c9549c64cf0e6226, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mikroskop Cahaya_18
+    second: {fileID: 2100000, guid: a122dc20ffff03e488820b0e769279f9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mikroskop Cahaya_19
+    second: {fileID: 2100000, guid: 60787d41e2928614c9f51e76e156d67a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mikroskop Cahaya_2
+    second: {fileID: 2100000, guid: 1741ec2d0a80c8248bfba931c9d6f869, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mikroskop Cahaya_20
+    second: {fileID: 2100000, guid: e30a1f755e6fe544683a9c1ad6a96272, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mikroskop Cahaya_21
+    second: {fileID: 2100000, guid: 930f4cee574298240bb8c30cf1dc9282, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mikroskop Cahaya_22
+    second: {fileID: 2100000, guid: d6a58c68b50483a4b9885aacc54c15e1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mikroskop Cahaya_23
+    second: {fileID: 2100000, guid: ec48822fb1aa8fc44971668a2f3bf351, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mikroskop Cahaya_24
+    second: {fileID: 2100000, guid: 02c61aadf4d769f4a9965b471eca43b8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mikroskop Cahaya_3
+    second: {fileID: 2100000, guid: 6d4d1e2eeb487144a990c411285443fd, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mikroskop Cahaya_4
+    second: {fileID: 2100000, guid: f3b9a0ba72e01d546b2be68232ac5051, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mikroskop Cahaya_5
+    second: {fileID: 2100000, guid: c4d90b29a386b3547878272a4e756d70, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mikroskop Cahaya_6
+    second: {fileID: 2100000, guid: 74200edf58854604dad51c2f87946876, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mikroskop Cahaya_7
+    second: {fileID: 2100000, guid: 3eadc5f9c84b922458458427696eb0bd, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
