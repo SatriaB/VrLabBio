@@ -1,70 +1,103 @@
 using Unity.XR.CoreUtils;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace FatahDev
 {
     public class PlayerController : MonoBehaviour
     {
-        [SerializeField]
-        private XROrigin xrOrigin;
+        [SerializeField] private XROrigin xrOrigin;
 
-		[BoxGroup("RayCast", "Raycast")]
-		[SerializeField]
-		private float maxDistanceRay;
+        [Header("Detect Area")]
+        [SerializeField] private float maxDistanceRay = 1.2f;
+        [SerializeField] private string lensTag = "Lens";
 
-		private Camera mainCamera;
+        [Header("Microscope View")]
+        [SerializeField] private Camera mikroskopCamera;
+        [SerializeField] private RawImage mikroskopImage;
+        [SerializeField] private CanvasGroup mikroskopCanvas;
 
-		[SerializeField]
-		private Camera mikroskopCamera;
+        [Header("Layers")]
+        [SerializeField] private string lensLayerName = "LensView";
 
-		private bool mikroskopEnabled;
+        private Camera mainCamera;
+        private bool mikroskopEnabled;
+        private int lensMask;
 
-		private void Start()
-		{
-			mainCamera = xrOrigin.Camera;
-		}
+        private void Awake()
+        {
+            lensMask = LayerMask.GetMask(lensLayerName);
+            if (lensMask == 0)
+                Debug.LogWarning($"[Microscope] Layer '{lensLayerName}' belum dibuat/terisi.");
+        }
 
-		private void Update()
-		{
-			if (xrOrigin == null) return;
+        private void Start()
+        {
+            mainCamera = xrOrigin.Camera;
 
-			RaycastHit hit;
-			Transform cameraTransform = xrOrigin.Camera.transform;
-			bool inMikroskopArea = false;
-			if (Physics.Raycast(cameraTransform.position, cameraTransform.forward.normalized, out hit, maxDistanceRay))
-			{
-				if (hit.collider.CompareTag("Lens"))
-				{
-					inMikroskopArea = true;
+            // Set culling mask dua kamera
+            if (mikroskopCamera && lensMask != 0)
+            {
+                mikroskopCamera.cullingMask = lensMask;
+                mikroskopCamera.stereoTargetEye = StereoTargetEyeMask.None; // penting!
+            }
+            if (mainCamera && lensMask != 0)
+            {
+                mainCamera.cullingMask &= ~lensMask; // exclude LensView dari kamera utama
+            }
 
-					if (mikroskopEnabled) return;
+            // Pastikan RawImage pakai RT mikroskop
+            if (mikroskopCamera && mikroskopCamera.targetTexture && mikroskopImage)
+                mikroskopImage.texture = mikroskopCamera.targetTexture;
 
-					mikroskopEnabled = true;
+            // Mulai dari off
+            SetMicroscope(false, instant: true);
+        }
 
-					mainCamera.enabled = !mikroskopEnabled;
-					mikroskopCamera.enabled = mikroskopEnabled;
-					Debug.Log("In Area Lens");
-				}
-			}
+        private void Update()
+        {
+            if (!xrOrigin) return;
 
-			if (inMikroskopArea) return;
+            var cam = xrOrigin.Camera.transform;
+            bool inArea = Physics.Raycast(cam.position, cam.forward, out var hit, maxDistanceRay)
+                          && hit.collider.CompareTag(lensTag);
 
-			if (mikroskopEnabled)
-			{
-				mikroskopEnabled = false;
+            SetMicroscope(inArea);
+        }
 
-				mainCamera.enabled = !mikroskopEnabled;
-				mikroskopCamera.enabled = mikroskopEnabled;
-			}
-		}
+        private void SetMicroscope(bool on, bool instant = false)
+        {
+            if (mikroskopEnabled == on && !instant) return;
+            mikroskopEnabled = on;
 
-		private void OnDrawGizmos()
-		{
-			if(xrOrigin == null) return;
+            if (mikroskopCamera) mikroskopCamera.enabled = on; // hemat render saat off
+            if (!mikroskopCanvas) return;
 
-			Transform cameraTransform = xrOrigin.Camera.transform;
-			Gizmos.color = Color.blue;
-			Gizmos.DrawLine(cameraTransform.position, cameraTransform.position + (cameraTransform.forward * maxDistanceRay));
-		}
-	}
+            if (instant)
+            {
+                mikroskopCanvas.alpha = on ? 1f : 0f;
+                mikroskopCanvas.blocksRaycasts = on;
+            }
+            else
+            {
+                StopAllCoroutines();
+                StartCoroutine(Fade(mikroskopCanvas, on ? 1f : 0f, 0.12f));
+            }
+        }
+
+        private System.Collections.IEnumerator Fade(CanvasGroup cg, float target, float dur)
+        {
+            float start = cg.alpha, t = 0f;
+            while (t < dur) { t += Time.deltaTime; cg.alpha = Mathf.Lerp(start, target, t / dur); yield return null; }
+            cg.alpha = target; cg.blocksRaycasts = target > 0.5f;
+        }
+
+        private void OnDrawGizmos()
+        {
+            if (!xrOrigin) return;
+            var cam = xrOrigin.Camera.transform;
+            Gizmos.color = Color.blue;
+            Gizmos.DrawLine(cam.position, cam.position + cam.forward * maxDistanceRay);
+        }
+    }
 }

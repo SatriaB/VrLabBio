@@ -17,6 +17,8 @@ namespace FatahDev
 
         private void Update()
         {
+            return;
+            
             if (Input.GetMouseButtonDown(0))
             {
                 if (IsPointerOver()) 
