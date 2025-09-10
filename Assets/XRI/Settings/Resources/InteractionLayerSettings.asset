@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_LayerNames:
   - Default
-  - 
-  - 
-  - 
+  - Tools_Physical
+  - Specimen_Physical
+  - Environment
   - 
   - 
   - 

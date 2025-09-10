@@ -4,42 +4,43 @@ using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
 using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
-namespace NusaForge.VR
+namespace FatahDev
 {
     [RequireComponent(typeof(Collider))]
-    public class CaliperSlider : XRBaseInteractable
+    public class CaliperSliderBase : XRBaseInteractable
     {
         public enum LimitMode { Anchors, Axis }
         [Header("Limit Mode")]
         public LimitMode limitMode = LimitMode.Axis;
 
-        [Header("Anchors (recommended)")]
+        [Header("Anchors (opsional)")]
         public Transform anchorA; // t=0
         public Transform anchorB; // t=max
 
         [Header("Axis mode")]
         public Transform reference;
-        public Vector3 localAxis = Vector3.up; // contoh: geser sumbu Y
-        public float min = 0f;    // meter (tidak dipakai jika useEditorPositionAsZero = true)
-        public float max = 0.15f; // meter (tetap dipakai sebagai batas atas)
+        public Vector3 localAxis = Vector3.right;
+        public float max = 0.15f; // meter, panjang rail Unity
 
-        [Header("Axis Zero (Axis mode)")]
-        [Tooltip("Jadikan posisi editor sebagai 0 mm (tanpa menggeser objek saat start).")]
+        [Header("Calibration")]
+        [Tooltip("Panjang real rail caliper sesuai skala (cm). Contoh: 15 cm, 20 cm.")]
+        public float realLengthCm = 15f;
+
+        [Tooltip("Gunakan posisi editor sebagai 0 cm.")]
         public bool useEditorPositionAsZero = true;
 
         [Header("Output & Tuning")]
-        public float snapStepMm = 0f;     // 0 = no snap
-        public float deadzone = 0.00005f; // anti jitter
-        public float currentMm;           // bacaan mm dari 0 editor
-        public UnityEvent<float> onValueChangedMm;
+        public float snapStepCm = 0f;        // kelipatan cm
+        public float deadzone = 0.00005f;    // meter
+        public float currentCm;              // bacaan dalam cm
+        public UnityEvent<float> onValueChangedCm;
 
-        // --- runtime state ---
         private IXRSelectInteractor pulling;
-        private float deltaT;                    // offset slide vs tangan
-        private float lastEmittedMm = float.NaN;
-        private Vector3 aW, bW, axisW;          // rail world
-        private float length;                    // meter (maxEff - minEff)
-        private float _editorZeroT;              // meter (pos editor di sepanjang sumbu, rel. ke reference)
+        private float deltaT;
+        private float lastEmittedCm = float.NaN;
+        private Vector3 aW, bW, axisW;
+        private float length;             // panjang rail Unity (m)
+        private float _editorZeroT;       // posisi editor (m)
         private bool _zeroInitialized;
 
         protected override void Awake()
@@ -54,19 +55,16 @@ namespace NusaForge.VR
 
             if (!reference) reference = transform.parent ? transform.parent : transform;
 
-            // Hitung posisi editor sebagai nol (hanya sekali, tidak menggeser objek)
             if (limitMode == LimitMode.Axis && useEditorPositionAsZero)
             {
                 Vector3 nLocal = localAxis.normalized;
                 Vector3 localPos = reference.InverseTransformPoint(transform.position);
-                _editorZeroT = Vector3.Dot(localPos, nLocal); // meter
+                _editorZeroT = Vector3.Dot(localPos, nLocal);
                 _zeroInitialized = true;
             }
 
-            RecalcRail(); // rail pakai minEff = editorZero atau 'min'
-
-            // Jangan geser posisi; cukup update bacaan
-            float tNow = GetSlideTWorld(); // 0 saat di posisi editor (jika useEditorPositionAsZero)
+            RecalcRail();
+            float tNow = GetSlideTWorld();
             EmitIfChanged(tNow);
         }
 
@@ -98,14 +96,12 @@ namespace NusaForge.VR
             float handT  = ProjectHandTWorld();
             float target = Mathf.Clamp(handT + deltaT, 0f, length);
 
-            // deadzone
             float cur = Mathf.Clamp(GetSlideTWorld(), 0f, length);
             if (Mathf.Abs(target - cur) < deadzone) target = cur;
 
-            // snap (mm -> m)
-            if (snapStepMm > 0.0001f)
+            if (snapStepCm > 0.0001f)
             {
-                float stepM = snapStepMm / 1000f;
+                float stepM = snapStepCm / 100f; // cm → meter
                 target = Mathf.Round(target / stepM) * stepM;
             }
 
@@ -126,17 +122,13 @@ namespace NusaForge.VR
                 return;
             }
 
-            // Axis mode
             if (!reference) reference = transform.parent ? transform.parent : transform;
 
             Vector3 origin = reference.position;
             axisW = reference.TransformDirection(localAxis.normalized);
 
-            // min efektif = posisi editor (jika diaktifkan), max tetap tidak berubah
-            float minEff = (useEditorPositionAsZero && _zeroInitialized) ? _editorZeroT : min;
+            float minEff = (useEditorPositionAsZero && _zeroInitialized) ? _editorZeroT : 0f;
             float maxEff = max;
-
-            // jaga agar tidak kebalik
             if (maxEff < minEff) maxEff = minEff;
 
             aW = origin + axisW * minEff;
@@ -157,27 +149,25 @@ namespace NusaForge.VR
 
         private void SetSlideTWorld(float t)
         {
-            transform.position = aW + axisW * t; // kinematik tepat di rel
+            transform.position = aW + axisW * t;
         }
 
         private void EmitIfChanged(float tMetersFromZero)
         {
-            // Karena aW sudah diposisikan di "nol editor", mm = t * 1000
-            float mm = tMetersFromZero * 1000f;
-            currentMm = mm;
+            // mapping meter → cm sesuai panjang rail real
+            float cm = (length <= 1e-6f) ? 0f : (tMetersFromZero / length) * realLengthCm;
+            currentCm = cm;
 
-            if (!Mathf.Approximately(mm, lastEmittedMm))
+            if (!Mathf.Approximately(cm, lastEmittedCm))
             {
-                lastEmittedMm = mm;
-                onValueChangedMm?.Invoke(mm);
+                lastEmittedCm = cm;
+                onValueChangedCm?.Invoke(cm);
             }
         }
 
 #if UNITY_EDITOR
         private void OnDrawGizmosSelected()
         {
-            // gambar rel aktual (sesudah zero editor diterapkan)
-            if (!reference) reference = transform.parent ? transform.parent : transform;
             RecalcRail();
             Gizmos.color = Color.cyan;
             Gizmos.DrawLine(aW, bW);
