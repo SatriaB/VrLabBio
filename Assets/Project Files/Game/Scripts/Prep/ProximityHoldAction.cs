@@ -16,7 +16,7 @@ namespace FatahDev
         [Tooltip("Jarak gerak minimal alat selama aktif (meter).")]
         public float requiredMoveDistance = 0.08f;
 
-        [Header("Output")] public QuestSignalEmitter signalEmitter;
+        //[Header("Output")] public QuestSignalEmitter signalEmitter;
         public string signalOnComplete = "slide.sliced";
         public UnityEvent OnCompleted;
 
@@ -86,8 +86,9 @@ namespace FatahDev
             if (completed) return;
             completed = true;
             OnCompleted?.Invoke();
-            if (signalEmitter && !string.IsNullOrEmpty(signalOnComplete))
-                signalEmitter.Emit(signalOnComplete);
+            QuestEvents.Emit(signalOnComplete);
+            /*if (signalEmitter && !string.IsNullOrEmpty(signalOnComplete))
+                signalEmitter.Emit(signalOnComplete);*/
         }
     }
 }

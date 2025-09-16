@@ -3,44 +3,99 @@
     using static QuestEvents;
     using static QuestSignals;
     
+    public static class MicroscopeEventNames
+    {
+        //public const string SlidePrepared   = "slide.prepared";
+        public const string SliceDone       = "slide.slice.done";
+        public const string WaterDropped    = "slide.water.dropped";
+        //public const string CoverApplied    = "slide.cover.applied";
+    }
+
+
     public class AssembleSlideGoal : QuestGoal
     {
         bool requireSlice, requireWaterDrop, requireCoverSlip;
         bool sliceCompleted, waterDropped, coverApplied;
+        bool completedOnce;
 
         protected override void OnBegin()
         {
-            requireSlice     = Parameters.GetBool("require_slice", true);
+            // reset state lokal
+            completedOnce = false;
+            sliceCompleted = false;
+            waterDropped = false;
+            coverApplied = false;
+
+            // baca parameter
+            requireSlice = Parameters.GetBool("require_slice", true);
             requireWaterDrop = Parameters.GetBool("require_water_drop", true);
             requireCoverSlip = Parameters.GetBool("require_cover_slip", true);
 
-            Subscribe(SlidePrepared, OnAnySlideEvent);
-            Subscribe("slide.slice.done", OnAnySlideEvent);
-            Subscribe("slide.water.dropped", OnAnySlideEvent);
-            Subscribe("slide.cover.applied", OnAnySlideEvent);
+            // subscribe event agregat + atomik
+            //Subscribe(MicroscopeEventNames.SlidePrepared, OnAnySlideEvent);
+            Subscribe(MicroscopeEventNames.SliceDone, OnAnySlideEvent);
+            Subscribe(MicroscopeEventNames.WaterDropped, OnAnySlideEvent);
+            //Subscribe(MicroscopeEventNames.CoverApplied, OnAnySlideEvent);
+
+            // kalau semua requirement false (atau sudah satisfied dari luar), lulus instan
+            TryComplete();
         }
 
-        void OnAnySlideEvent(QuestEventData eventData)
+        void OnAnySlideEvent(QuestEventData e)
         {
-            if (eventData.Name == SlidePrepared)
-            {
-                Complete();
-                return;
-            }
-            if (eventData.Name == "slide.slice.done") sliceCompleted = true;
-            if (eventData.Name == "slide.water.dropped") waterDropped = true;
-            if (eventData.Name == "slide.cover.applied") coverApplied = true;
+            if (completedOnce) return; // guard idempotent
 
-            if ((!requireSlice || sliceCompleted) && (!requireWaterDrop || waterDropped) && (!requireCoverSlip || coverApplied))
-                Complete();
+            // agregat (boleh langsung lulus)
+            /*if (e.Name == MicroscopeEventNames.SlidePrepared)
+            {
+                CompleteSafe();
+                return;
+            }*/
+
+            // atomik
+            if (e.Name == MicroscopeEventNames.SliceDone) sliceCompleted = true;
+            if (e.Name == MicroscopeEventNames.WaterDropped) waterDropped = true;
+            //if (e.Name == MicroscopeEventNames.CoverApplied) coverApplied = true;
+
+            TryComplete();
+        }
+
+        void TryComplete()
+        {
+            if (completedOnce) return;
+
+            bool okSlice = !requireSlice || sliceCompleted;
+            bool okWater = !requireWaterDrop || waterDropped;
+            bool okCover = !requireCoverSlip || coverApplied;
+
+            if (okSlice && okWater && okCover)
+                CompleteSafe();
+        }
+
+        void CompleteSafe()
+        {
+            if (completedOnce) return;
+            completedOnce = true;
+            Complete(); // panggil API milik base class kamu
         }
 
         protected override void OnCancel()
         {
-            QuestEvents.Unsubscribe(SlidePrepared, OnAnySlideEvent);
-            QuestEvents.Unsubscribe("slide.slice.done", OnAnySlideEvent);
-            QuestEvents.Unsubscribe("slide.water.dropped", OnAnySlideEvent);
-            QuestEvents.Unsubscribe("slide.cover.applied", OnAnySlideEvent);
+            UnsubAll();
+        }
+
+        // penting: lepas listener saat selesai juga
+        protected override void OnComplete()
+        {
+            UnsubAll();
+        }
+
+        void UnsubAll()
+        {
+           // QuestEvents.Unsubscribe(MicroscopeEventNames.SlidePrepared, OnAnySlideEvent);
+            QuestEvents.Unsubscribe(MicroscopeEventNames.SliceDone, OnAnySlideEvent);
+            QuestEvents.Unsubscribe(MicroscopeEventNames.WaterDropped, OnAnySlideEvent);
+            //QuestEvents.Unsubscribe(MicroscopeEventNames.CoverApplied, OnAnySlideEvent);
         }
     }
 

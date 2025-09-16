@@ -12,7 +12,7 @@ namespace FatahDev
         [Tooltip("Cooldown agar tidak spam (detik).")]
         public float cooldown = 1f;
 
-        [Header("Output")] public QuestSignalEmitter signalEmitter;
+        //[Header("Output")] public QuestSignalEmitter signalEmitter;
         public string signalOnPress = "slide.water_dropped";
         public UnityEvent OnPressed;
 
@@ -28,14 +28,13 @@ namespace FatahDev
         {
             if (Time.time < lastFireTime + cooldown) return;
             if (!string.IsNullOrEmpty(requiredChildName) && other.name != requiredChildName) return;
-
+            
             var flag = other.transform.root.GetComponent<XRInteractableActivateFlag>();
             if (flag != null && flag.IsActiveNow())
             {
                 lastFireTime = Time.time;
                 OnPressed?.Invoke();
-                if (signalEmitter && !string.IsNullOrEmpty(signalOnPress))
-                    signalEmitter.Emit(signalOnPress);
+                QuestEvents.Emit(signalOnPress);
             }
         }
     }

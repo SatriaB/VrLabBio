@@ -25,6 +25,8 @@ namespace FatahDev
         
         public ObjectiveLensProfile[] lensProfiles; // urutan: 4x,10x,40x,100x
         public MicroscopeOpticsController optics;
+        
+        [SerializeField] private MicroscopeMagnificationUI magnificationUI;
 
         private void Start()
         {
@@ -130,10 +132,15 @@ namespace FatahDev
         {
             if (lensProfiles == null || lensProfiles.Length == 0 || optics == null) return;
 
-            // Map step ke profil (0=4x, 1=10x, 2=40x, 3=100x)
+            // (kalau urutan profilmu beda, silakan sesuaikan mapping angka di sini)
+            int[] mags = { 4, 10, 40, 100 };
             int idx = Mathf.Clamp(stepIndex % lensProfiles.Length, 0, lensProfiles.Length - 1);
+            int objective = mags[Mathf.Clamp(idx, 0, mags.Length - 1)];
 
             optics.Apply(lensProfiles[idx]);
+            
+            magnificationUI.SetStepIndex(idx);
+            QuestEvents.Emit($"turret.set.{objective}");
             Debug.Log($"[Microscope] Active lens: {lensProfiles[idx].displayName}");
         }
     }

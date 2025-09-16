@@ -29,7 +29,9 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _BlurStrength: 0
     - _Brightness: 1
+    - _ChromAb: 0
     - _ColorMask: 15
     - _Contrast: 1
     - _Gamma: 1
@@ -38,9 +40,13 @@ Material:
     - _StencilOp: 0
     - _StencilReadMask: 255
     - _StencilWriteMask: 255
+    - _UseUIAlphaClip: 0
     - _VRound: 2
     - _VSoft: 0.3
     - _Vignette: 0
+    - _ZTest: 4
+    - _ZWrite: 0
+    - _Zoom: 1
     m_Colors:
     - _ClipRect: {r: -32767, g: -32767, b: 32767, a: 32767}
     - _Color: {r: 1, g: 1, b: 1, a: 1}

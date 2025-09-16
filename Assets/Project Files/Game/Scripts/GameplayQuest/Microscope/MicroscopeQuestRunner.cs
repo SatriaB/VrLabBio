@@ -1,12 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
 namespace FatahDev
 {
+    // ======================= Quest Runner =======================
     /// <summary>
-    /// Menjalankan urutan quest mikroskop: Persiapan → 4× → 10× → 40× → 100× (minyak) → Shutdown.
-    /// Tambahan: UI hooks (UnityEvent) untuk mengikat ke UI checklist (DONE/belum).
+    /// Menjalankan urutan quest mikroskop (ringkas): Prep → Place → 4× → 10× → 40× → 100× (Complete).
+    /// UI hooks disediakan untuk bind ke checklist UI.
     /// </summary>
     [DefaultExecutionOrder(-5000)]
     public class MicroscopeQuestRunner : MonoBehaviour
@@ -27,6 +29,30 @@ namespace FatahDev
         public StepStartedEvent OnStepStarted;
         public StepFinishedEvent OnStepFinished;
         public UnityEvent OnQuestCompleted;
+
+        // ===== Catalog (optional) =====
+        [Header("Catalog (optional)")]
+        [SerializeField] private MicroscopeQuestCatalog questCatalog;  // assign asset untuk edit via Inspector
+        [SerializeField] private bool useBuiltInDefaultCatalog = true; // uncheck jika hanya mau pakai asset
+
+        // ===== Default array (dipakai jika asset kosong / tidak diassign) =====
+        private static readonly QuestSpec[] DefaultCatalog = new[]
+        {
+            new QuestSpec { id="prep_slide",   title="Prepare the slide",          kind=GoalKind.AssembleSlide, requireSlice=true, requireWaterDrop=true, requireCoverSlip=false },
+            new QuestSpec { id="place_slide",  title="Place the slide on stage",   kind=GoalKind.PlaceSlide },
+            new QuestSpec { id="set_4x",       title="Rotate to 4× objective",     kind=GoalKind.SetTurret, objective=4 },
+            new QuestSpec { id="set_10x",      title="Rotate to 10× objective",    kind=GoalKind.SetTurret, objective=10 },
+            new QuestSpec { id="set_40x",      title="Rotate to 40× objective",    kind=GoalKind.SetTurret, objective=40 },
+            new QuestSpec { id="set_100x",     title="Rotate to 100× objective",   kind=GoalKind.SetTurret, objective=100 },
+        };
+
+        private IEnumerable<QuestSpec> GetActiveCatalog()
+        {
+            if (!useBuiltInDefaultCatalog && questCatalog != null && questCatalog.steps != null && questCatalog.steps.Count > 0)
+                return questCatalog.steps;
+
+            return DefaultCatalog;
+        }
 
         // ===== Runtime =====
         private readonly Queue<(QuestGoal goal, string id, GoalParams parameters)> goalQueue = new();
@@ -49,7 +75,7 @@ namespace FatahDev
             if (autoStart) BuildAndStartQuest();
         }
 
-        /// <summary>Build antrean step dan mulai eksekusi.</summary>
+        // ================== Build & Start (for-loop katalog) ==================
         public void BuildAndStartQuest()
         {
             if (logProgress) Debug.LogWarning("[Quest] BuildAndStartQuest() CALLED");
@@ -57,7 +83,6 @@ namespace FatahDev
             runStamp++;
             StopAllCoroutines();
 
-            // Batalkan goal berjalan (bersihin subscribe/OnCancel)
             if (currentGoalInfo is { } cg)
             {
                 cg.goal.Cancel();
@@ -66,65 +91,40 @@ namespace FatahDev
 
             goalQueue.Clear();
 
-            // ================== PHASE 0 — Persiapan preparat (opsional) ==================
-            goalQueue.Enqueue((new AssembleSlideGoal(), "prep_slide", BuildParameters(new()
+            // LOOP katalog → instantiate goal + parameters berdasarkan jenisnya
+            foreach (var spec in GetActiveCatalog())
             {
-                { "require_slice", true }, { "require_water_drop", true }, { "require_cover_slip", true }
-            })));
+                switch (spec.kind)
+                {
+                    case GoalKind.AssembleSlide:
+                    {
+                        var param = new Dictionary<string, object>
+                        {
+                            { "require_slice", spec.requireSlice },
+                            { "require_water_drop", spec.requireWaterDrop },
+                            { "require_cover_slip", spec.requireCoverSlip }
+                        };
+                        goalQueue.Enqueue((new AssembleSlideGoal(), spec.id, BuildParameters(param)));
+                        break;
+                    }
 
-            // ================== PHASE 1 — Power ON + set 4× ==================
-            goalQueue.Enqueue((new TogglePowerGoal(), "power_on", BuildParameters(new() { { "value", true } })));
-            goalQueue.Enqueue((new SetTurretGoal(), "set_4x", BuildParameters(new() { { "objective", 4 } })));
+                    case GoalKind.PlaceSlide:
+                    {
+                        goalQueue.Enqueue((new PlaceSlideGoal(), spec.id, BuildParameters(null)));
+                        break;
+                    }
 
-            // ================== PHASE 2 — 4× ==================
-            goalQueue.Enqueue((new PlaceSlideGoal(), "place_slide", BuildParameters(null)));
-            goalQueue.Enqueue((new AchieveFocusGoal(), "focus_4x", BuildParameters(new()
-            {
-                { "objective", 4 }, { "order_macro_then_micro", true }, { "tolerance", 0.95f }
-            })));
-            goalQueue.Enqueue((new CaptureImageGoal(), "capture_4x", BuildParameters(new() { { "objective", 4 } })));
-
-            // ================== PHASE 3 — 10× ==================
-            goalQueue.Enqueue((new SetTurretGoal(), "set_10x", BuildParameters(new() { { "objective", 10 } })));
-            goalQueue.Enqueue((new AchieveFocusGoal(), "focus_10x", BuildParameters(new()
-            {
-                { "objective", 10 }, { "tolerance", 0.95f }
-            })));
-            goalQueue.Enqueue((new CaptureImageGoal(), "capture_10x", BuildParameters(new() { { "objective", 10 } })));
-
-            // ================== PHASE 4 — 40× ==================
-            goalQueue.Enqueue((new SetTurretGoal(), "set_40x", BuildParameters(new() { { "objective", 40 } })));
-            goalQueue.Enqueue((new AchieveFocusGoal(), "focus_40x", BuildParameters(new()
-            {
-                { "objective", 40 }, { "tolerance", 0.95f }
-            })));
-            goalQueue.Enqueue((new CaptureImageGoal(), "capture_40x", BuildParameters(new() { { "objective", 40 } })));
-
-            // ================== PHASE 5 — 100× (dengan minyak) ==================
-            goalQueue.Enqueue((new ApplyOilGoal(), "apply_oil", BuildParameters(null)));
-            goalQueue.Enqueue((new SetTurretGoal(), "set_100x", BuildParameters(new() { { "objective", 100 } })));
-            goalQueue.Enqueue((new AchieveFocusGoal(), "focus_100x", BuildParameters(new()
-            {
-                { "objective", 100 }, { "tolerance", 0.95f }
-            })));
-            goalQueue.Enqueue((new CaptureImageGoal(), "capture_100x", BuildParameters(new() { { "objective", 100 } })));
-
-            // ================== PHASE 6 — Shutdown & Perawatan ==================
-            goalQueue.Enqueue((new RaiseObjectiveGoal(), "raise_objective_safe", BuildParameters(new()
-            {
-                { "safe_distance_mm", 10 }
-            })));
-            goalQueue.Enqueue((new CleanLensGoal(), "clean_lens", BuildParameters(null)));
-            goalQueue.Enqueue((new SetTurretGoal(), "back_to_4x", BuildParameters(new() { { "objective", 4 } })));
-            goalQueue.Enqueue((new TogglePowerGoal(), "power_off", BuildParameters(new() { { "value", false } })));
-            goalQueue.Enqueue((new DockMicroscopeGoal(), "dock", BuildParameters(new()
-            {
-                { "require_two_handed_pickup", true }, { "require_correct_orientation", true }
-            })));
+                    case GoalKind.SetTurret:
+                    {
+                        var param = new Dictionary<string, object> { { "objective", spec.objective } };
+                        goalQueue.Enqueue((new SetTurretGoal(), spec.id, BuildParameters(param)));
+                        break;
+                    }
+                }
+            }
 
             if (logProgress) Debug.LogWarning($"[Quest] Built {goalQueue.Count} steps.");
 
-            // Beri tahu UI untuk rebuild list (DONE/belum)
             OnQuestBuilt?.Invoke();
 
             AdvanceToNextGoal();
@@ -133,10 +133,8 @@ namespace FatahDev
         private static GoalParams BuildParameters(Dictionary<string, object> map) =>
             new GoalParams(map ?? new());
 
-        /// <summary>Melanjutkan ke goal berikutnya dalam antrean.</summary>
         private void AdvanceToNextGoal()
         {
-            // Hentikan goal aktif (jika ada) sebelum lanjut
             if (currentGoalInfo is { } current)
             {
                 current.goal.Cancel();
@@ -188,6 +186,16 @@ namespace FatahDev
             }
 
             AdvanceToNextGoal();
+        }
+
+        // ================== (Opsional) bantuan untuk UI ==================
+        // Supaya UI bisa render list langkah tanpa data baru.
+        public List<(string id, string title)> GetPlannedSteps()
+        {
+            var list = new List<(string id, string title)>();
+            foreach (var s in GetActiveCatalog())
+                list.Add((s.id, s.title));
+            return list;
         }
     }
 }

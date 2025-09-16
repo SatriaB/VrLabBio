@@ -39,7 +39,7 @@ namespace FatahDev
             if (mikroskopCamera && lensMask != 0)
             {
                 mikroskopCamera.cullingMask = lensMask;
-                mikroskopCamera.stereoTargetEye = StereoTargetEyeMask.None; // penting!
+                //mikroskopCamera.stereoTargetEye = StereoTargetEyeMask.None; // penting!
             }
             if (mainCamera && lensMask != 0)
             {
