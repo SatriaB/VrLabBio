@@ -29,7 +29,6 @@ namespace FatahDev
 
         void OnActivated(ActivateEventArgs _)
         {
-            Debug.Log("XRInteractableActivateFlag.OnActivated");
             _lastActivatedTime = Time.time;
         }
 

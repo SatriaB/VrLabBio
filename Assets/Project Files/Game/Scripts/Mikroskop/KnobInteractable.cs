@@ -1,106 +1,157 @@
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
 using UnityEngine.XR.Interaction.Toolkit;
-using UnityEngine.XR.Interaction.Toolkit.Interactors;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 namespace FatahDev
 {
-    public class KnobInteractable : XRBaseInteractable
+    [RequireComponent(typeof(XRSimpleInteractable))]
+    public class KnobInteractable : MonoBehaviour
     {
-        [Header("Target & Axis")]
+        [Header("Target Knob")]
         [SerializeField] private Transform knobTransform;
         [SerializeField] private Vector3 localAxis = Vector3.forward;
         [SerializeField] private bool axisIsLocal = true;
 
-        [Header("Limits (deg)")]
+        [Header("Batas (derajat)")]
         [SerializeField] private bool useLimits = true;
         [SerializeField] private float minDegrees = 0f;
         [SerializeField] private float maxDegrees = 90f;
 
-        [Header("Snapping (optional)")]
+        [Header("Snapping / Steps (opsional)")]
         [SerializeField] private bool useSnap = false;
         [SerializeField] private float snapStep = 10f;
+        [SerializeField] private bool useSteps = false;
+        [SerializeField] private int steps = 5;
 
-        [Header("Steps (optional)")]
-        [SerializeField] private bool useSteps = false;   // nyalakan kalau mau diskrit
-        [SerializeField] private int steps = 5;           // termasuk min & max
+        [Header("Output (0..1)")]
+        [SerializeField] private bool invertOutput = false;
+        public UnityEvent<float> OnValueChanged;
 
-        [Header("Output")]
-        [SerializeField] private bool invertOutput = false;   // kebalikin 0..1 → 1..0
-        public UnityEvent<float> OnValueChanged;              // 0..1 (buat brightness)
+        [SerializeField] private Transform knob;
+        [SerializeField] private InputActionReference triggerAction;
 
-        private IXRSelectInteractor selectingInteractor;
-        private Quaternion initialKnobWorldRotation;
-        private Vector3 initialDirOnPlane;
+        private XRSimpleInteractable interactable;
+        private IXRSelectInteractor selecting;
+        private Vector3 startDirOnPlane;
+        private Vector3 prevDirOnPlane;
         private Vector3 axisWorld;
 
-        protected override void OnSelectEntered(SelectEnterEventArgs args)
+        // ==== Tambahan untuk anti-wrap ====
+        private float currentAngleDeg = 0f;     // sudut absolut yang diakumulasi (tidak wrap 180)
+        private Quaternion zeroRotWorld;        // referensi 0° (rotasi awal di scene)
+
+        void Reset()
         {
-            base.OnSelectEntered(args);
-            selectingInteractor = args.interactorObject;
+            knobTransform = transform;
+        }
+
+        void Awake()
+        {
+            interactable = GetComponent<XRSimpleInteractable>();
+            if (knobTransform == null) knobTransform = transform;
+
+            // Set referensi 0° ke rotasi awal object di scene
+            zeroRotWorld = knobTransform.rotation;
+
+            // Optional: kalau mau posisi awal bukan 0°, isi currentAngleDeg via Inspector
+            currentAngleDeg = Mathf.Clamp(currentAngleDeg, minDegrees, maxDegrees);
+            ApplyKnobRotation(currentAngleDeg);
+        }
+
+        void OnEnable()
+        {
+            interactable.selectEntered.AddListener(OnSelectEntered);
+            interactable.selectExited.AddListener(OnSelectExited);
+        }
+
+        void OnDisable()
+        {
+            interactable.selectEntered.RemoveListener(OnSelectEntered);
+            interactable.selectExited.RemoveListener(OnSelectExited);
+        }
+
+        private void OnSelectEntered(SelectEnterEventArgs args)
+        {
+            selecting = args.interactorObject;
 
             axisWorld = (axisIsLocal ? knobTransform.TransformDirection(localAxis) : localAxis).normalized;
 
             var center = knobTransform.position;
-            var hand = selectingInteractor.GetAttachTransform(this);
+            var hand = GetInteractorAttach(selecting, args.interactableObject);
+            startDirOnPlane = Vector3.ProjectOnPlane(hand.position - center, axisWorld).normalized;
 
-            initialDirOnPlane = Vector3.ProjectOnPlane(hand.position - center, axisWorld).normalized;
-            initialKnobWorldRotation = knobTransform.rotation;
+            // Mulai integrasi delta dari arah awal ini
+            prevDirOnPlane = startDirOnPlane;
         }
 
-        protected override void OnSelectExited(SelectExitEventArgs args)
+        private void OnSelectExited(SelectExitEventArgs args)
         {
-            base.OnSelectExited(args);
-            selectingInteractor = null;
+            if (selecting == args.interactorObject) selecting = null;
         }
 
-        public override void ProcessInteractable(XRInteractionUpdateOrder.UpdatePhase updatePhase)
+        void Update()
         {
-            base.ProcessInteractable(updatePhase);
-            if (updatePhase != XRInteractionUpdateOrder.UpdatePhase.Dynamic || selectingInteractor == null)
-                return;
+            if (selecting == null) return;
 
             var center = knobTransform.position;
-            var hand = selectingInteractor.GetAttachTransform(this);
+            var hand = GetInteractorAttach(selecting, interactable);
+            var nowDir = Vector3.ProjectOnPlane(hand.position - center, axisWorld).normalized;
 
-            Vector3 currentDir = Vector3.ProjectOnPlane(hand.position - center, axisWorld).normalized;
+            // Delta kecil per-frame (anti-wrap). Ini bisa lewat >180° total karena diakumulasikan.
+            float frameDelta = Vector3.SignedAngle(prevDirOnPlane, nowDir, axisWorld);
+            prevDirOnPlane = nowDir;
 
-            float delta = Vector3.SignedAngle(initialDirOnPlane, currentDir, axisWorld);
+            // Akumulasi sudut absolut
+            currentAngleDeg += frameDelta;
 
-            float target = delta;
-
+            // Batas (kalau diaktifkan)
             if (useLimits)
-                target = Mathf.Clamp(target, minDegrees, maxDegrees);
+                currentAngleDeg = Mathf.Clamp(currentAngleDeg, minDegrees, maxDegrees);
 
-            float clamped = target;
-            float tNorm;
+            float outAngle = currentAngleDeg;
 
             if (useSteps && steps > 1)
             {
                 float span = (maxDegrees - minDegrees);
                 float stepDeg = span / (steps - 1);
-                int idx = Mathf.RoundToInt((clamped - minDegrees) / stepDeg);
+                int idx = Mathf.RoundToInt((outAngle - minDegrees) / stepDeg);
                 idx = Mathf.Clamp(idx, 0, steps - 1);
+                outAngle = minDegrees + idx * stepDeg;
 
-                target = minDegrees + idx * stepDeg;
-                tNorm = (float)idx / (steps - 1);
+                float t = (float)idx / (steps - 1);
+                if (invertOutput) t = 1f - t;
+                OnValueChanged?.Invoke(t);
             }
             else
             {
                 if (useSnap && snapStep > 0f)
-                {
-                    target = Mathf.Round(target / snapStep) * snapStep;
-                    clamped = Mathf.Clamp(target, minDegrees, maxDegrees);
-                }
+                    outAngle = Mathf.Round(outAngle / snapStep) * snapStep;
 
-                tNorm = Mathf.InverseLerp(minDegrees, maxDegrees, clamped);
+                if (useLimits)
+                    outAngle = Mathf.Clamp(outAngle, minDegrees, maxDegrees);
+
+                float t = Mathf.InverseLerp(minDegrees, maxDegrees, outAngle);
+                if (invertOutput) t = 1f - t;
+                OnValueChanged?.Invoke(t);
             }
 
-            knobTransform.rotation = Quaternion.AngleAxis(target, axisWorld) * initialKnobWorldRotation;
+            // Simpan & apply sudut hasil snapping/steps
+            currentAngleDeg = outAngle;
+            ApplyKnobRotation(currentAngleDeg);
+        }
 
-            if (invertOutput) tNorm = 1f - tNorm;
-            OnValueChanged?.Invoke(tNorm);
+        private void ApplyKnobRotation(float angleDeg)
+        {
+            knobTransform.rotation = Quaternion.AngleAxis(angleDeg, axisWorld) * zeroRotWorld;
+        }
+
+        private static Transform GetInteractorAttach(IXRSelectInteractor interactor, IXRInteractable forThis)
+        {
+            var t = interactor.GetAttachTransform(forThis);
+            return t != null ? t : (interactor as Component).transform;
         }
     }
 }

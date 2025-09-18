@@ -3,40 +3,60 @@ using UnityEngine.UI;
 
 namespace FatahDev
 {
+    // Knob mengatur Blur (fokus) -> _BlurStrength di shader "UI/MicroscopeRaw"
+    // Zoom & efek lain TIDAK disentuh.
     public class RawImageLightDriver : MonoBehaviour
     {
-        [SerializeField] private RawImage target; // RawImage yg menampilkan RT
-        [Header("Ranges")]
-        [SerializeField] private float minBrightness = 0.6f;
-        [SerializeField] private float maxBrightness = 1.8f;
-        [SerializeField] private float minGamma = 1.2f;   //  >1 = sedikit gelap (kontras naik)
-        [SerializeField] private float maxGamma = 0.8f;   //  <1 = terasa lebih terang
-        [SerializeField] private float minContrast = 0.95f;
-        [SerializeField] private float maxContrast = 1.15f;
+        [SerializeField] private RawImage target;
 
-        [Header("Vignette (opsional)")]
-        [SerializeField] private float minVig = 0.15f;
-        [SerializeField] private float maxVig = 0.45f;
+        [Header("Blur (0 = tajam, 1 = blur)")]
+        [SerializeField] private float minBlur = 0f;   // nilai ke _BlurStrength saat t=0
+        [SerializeField] private float maxBlur = 1f;   // nilai ke _BlurStrength saat t=1
+
+        [Header("Fokus V-shape (opsional)")]
+        [SerializeField] private bool twoSidedFocus = false; // ON: tajam di tengah, kiri/kanan makin blur
+        [Range(0,1)] [SerializeField] private float focusCenter = 0.5f;
+        [Range(0.05f,1f)] [SerializeField] private float focusWidth = 0.5f;
+
+        // (Legacy opsional—biar kompatibel kalau dipakai tempat lain)
+        [Header("Legacy (opsional)")]
+        [SerializeField] private float minBrightness = 1f;
+        [SerializeField] private float maxBrightness = 1f;
+        [SerializeField] private float minGamma = 1f;
+        [SerializeField] private float maxGamma = 1f;
+        [SerializeField] private float minContrast = 1f;
+        [SerializeField] private float maxContrast = 1f;
+        [SerializeField] private float minVignette = 0.2f;
+        [SerializeField] private float maxVignette = 0.2f;
 
         Material _mat;
 
         void Awake()
         {
             if (!target) target = GetComponent<RawImage>();
-            // Biar tidak mengubah material asset, kita instansiasi
             _mat = Instantiate(target.material);
             target.material = _mat;
         }
 
-        // Hubungkan ke VRKnobInteractable.OnValueChanged(t)
+        // Tetap panggil ini dari knob (0..1)
         public void SetNormalized(float t)
         {
             t = Mathf.Clamp01(t);
 
-            _mat.SetFloat("_Brightness", Mathf.Lerp(minBrightness, maxBrightness, t));
-            _mat.SetFloat("_Gamma",      Mathf.Lerp(minGamma,      maxGamma,      t));
-            _mat.SetFloat("_Contrast",   Mathf.Lerp(minContrast,   maxContrast,   t));
-            _mat.SetFloat("_Vignette",   Mathf.Lerp(minVig,        maxVig,        t));
+            // ---- BLUR yang baru ----
+            float blur;
+            if (twoSidedFocus)
+            {
+                float d = Mathf.Abs(t - focusCenter) / Mathf.Max(0.0001f, focusWidth);
+                blur = Mathf.Lerp(minBlur, maxBlur, Mathf.Clamp01(d));
+            }
+            else
+            {
+                blur = Mathf.Lerp(minBlur, maxBlur, t);
+            }
+            
+            Debug.Log("blur: " + blur);
+            _mat.SetFloat("_BlurStrength", blur);
         }
     }
 }
