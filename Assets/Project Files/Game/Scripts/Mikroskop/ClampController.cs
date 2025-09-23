@@ -123,13 +123,13 @@ namespace FatahDev
             {
                 isOpened = true;
                 OnClampOpened?.Invoke();
-                UpdateSocketState(true); // aktifkan socket kalau clamp terbuka
+                UpdateSocketState(true);
             }
             else if (isOpened && t <= closeThreshold)
             {
                 isOpened = false;
                 OnClampClosed?.Invoke();
-                UpdateSocketState(false); // matikan socket kalau clamp tertutup
+                UpdateSocketState(false); 
             }
 
             ApplyClampRotation(currentAngleDeg);
@@ -146,8 +146,7 @@ namespace FatahDev
 
             Collider col = slideSocket.GetComponent<Collider>();
             if (col == null) return;
-
-            // Jangan matikan collider kalau sudah ada slide di dalam
+            
             if (!canPlace && slideSocket.hasSelection)
                 return;
 
