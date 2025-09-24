@@ -3,27 +3,13 @@ using UnityEngine;
 
 namespace FatahDev
 {
-    /// <summary>
-    /// UI checklist yang sepenuhnya membaca urutan langkah dari MicroscopeQuestRunner
-    /// (GetPlannedSteps). Tidak ada data UI terpisah/StepDef.
-    /// 
-    /// Kebutuhan:
-    /// - itemPrefab memiliki komponen MicroscopeTaskItem
-    ///   dengan API: void Setup(string id, string label), void SetDone(bool value).
-    /// - Hubungkan UnityEvent dari Runner:
-    ///   OnQuestBuilt      -> HandleQuestBuilt
-    ///   OnStepStarted     -> HandleStepStarted
-    ///   OnStepFinished    -> HandleStepFinished
-    ///   OnQuestCompleted  -> HandleQuestCompleted
-    /// </summary>
     public class MicroscopeTaskListUI : MonoBehaviour
     {
         [Header("Hierarchy")]
-        [SerializeField] private Transform contentRoot;   // parent untuk item
-        [SerializeField] private GameObject itemPrefab;   // prefab berisi MicroscopeTaskItem
-        [SerializeField] private MicroscopeQuestRunner runner; // assign runner di scene
+        [SerializeField] private Transform contentRoot;   
+        [SerializeField] private GameObject itemPrefab;   
+        [SerializeField] private MicroscopeQuestRunner runner;
 
-        // id -> item UI
         private readonly Dictionary<string, MicroscopeTaskItem> items = new();
 
         private void Awake()
@@ -45,22 +31,12 @@ namespace FatahDev
                 return;
             }
 
-            // Bersihkan anak lama
             for (int i = contentRoot.childCount - 1; i >= 0; i--)
                 Destroy(contentRoot.GetChild(i).gameObject);
 
-            // Ambil (id, title) langsung dari Runner
             List<(string id, string title)> planned = null;
-            if (runner != null)
-            {
-                planned = runner.GetPlannedSteps();
-            }
-            else
-            {
-                planned = new List<(string id, string title)>();
-            }
+            planned = runner != null ? runner.GetPlannedSteps() : new List<(string id, string title)>();
 
-            // Bangun tiap item UI
             foreach (var (id, title) in planned)
             {
                 var go = Instantiate(itemPrefab, contentRoot, false);
@@ -78,10 +54,8 @@ namespace FatahDev
             }
         }
 
-        // ==== Dipanggil dari Runner via UnityEvent ====
         public void HandleQuestBuilt()
         {
-            // Katalog bisa berubah → rebuild list.
             Rebuild();
         }
 
