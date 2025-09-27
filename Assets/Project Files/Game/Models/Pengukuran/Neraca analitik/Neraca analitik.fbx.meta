@@ -1,9 +1,24 @@
 fileFormatVersion: 2
-guid: ff888128ef597114098fc7bbb6627e8d
+guid: e61cb243f91555c4a858236ec5d282c9
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Kaca analitik
+    second: {fileID: 2100000, guid: 5a2e2b0f5604a374ebd61395c872debf, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Neraca analitik
+    second: {fileID: 2100000, guid: 5deeb534adb68aa4cb2dee42a177f6da, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Tombol
+    second: {fileID: 2100000, guid: 2f3c5578869ebfc40a762da0256f7327, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
