@@ -7,8 +7,8 @@ namespace FatahDev
     {
         private static readonly QuestSpec[] DefaultCatalog =
         {
-            new() { id="micro_place",   title="Tempatkan benda",            kind=GoalKind.Micrometer, phase="place"   },
-            new() { id="micro_capture", title="Capture pembacaan",          kind=GoalKind.Micrometer, phase="capture" },
+            new() { id="micro_place",   title="Tempatkan Mikrometer",            kind=GoalKind.Micrometer, phase="place"},
+            new() { id="micro_specimen_place", title="Tempatkan benda",          kind=GoalKind.Micrometer, phase="specimen_place" },
         };
 
         protected override IEnumerable<QuestSpec> GetActiveCatalog() => DefaultCatalog;

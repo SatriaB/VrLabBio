@@ -4,11 +4,12 @@
     public class MicrometerGoal : QuestGoal
     {
         private string expectedSignal;
+        private int targetIndex;
 
         protected override void OnBegin()
         {
             var phase = (Parameters?.GetString("phase", "zero") ?? "zero").ToLowerInvariant();
-            expectedSignal = PhaseToSignal(phase);
+            expectedSignal = PhaseToSignal(phase, out targetIndex);
 
             if (string.IsNullOrEmpty(expectedSignal))
             {
@@ -29,16 +30,23 @@
 
         private void OnEvent(QuestEvents.QuestEventData e)
         {
+            VRLWorks.CompleteMicrometer(targetIndex, e.Name);
             Complete();
         }
 
-        private static string PhaseToSignal(string phase)
+        private static string PhaseToSignal(string phase, out int index)
         {
             switch (phase)
             {
-                case "place":   return QuestSignals.MICROMETER_SPECIMEN_PLACED;
-                case "capture": return QuestSignals.MICROMETER_MEASURE_CAPTURED;
-                default:        return null;
+                case "place":
+                    index = 0;
+                    return QuestSignals.MICROMETER_PLACED;
+                case "specimen_place": 
+                    index = 1;
+                    return QuestSignals.MICROMETER_SPECIMEN_PLACED;
+                default:        
+                    index = 0;
+                    return null;
             }
         }
     }

@@ -73,10 +73,26 @@
             }
 
             // mode gabungan (all)
-            if      (e.Name == QuestSignals.PINSET_SAMPLE_PICKED)   samplePicked  = true;
-            else if (e.Name == QuestSignals.SAMPLE_PLACED_ON_SLIDE) samplePlaced  = true;
-            else if (e.Name == QuestSignals.WATER_DROPPED_ON_SLIDE) waterDropped  = true;
-            else if (e.Name == QuestSignals.SLIDE_INSERTED)         slideInserted = true;
+            if (e.Name == QuestSignals.PINSET_SAMPLE_PICKED)
+            {
+                VRLWorks.CompleteMicroscope(0, e.Name);
+                samplePicked  = true;
+            }
+            else if (e.Name == QuestSignals.SAMPLE_PLACED_ON_SLIDE)
+            {
+                VRLWorks.CompleteMicroscope(1, e.Name);
+                samplePlaced  = true;
+            }
+            else if (e.Name == QuestSignals.WATER_DROPPED_ON_SLIDE)
+            {
+                VRLWorks.CompleteMicroscope(2, e.Name);
+                waterDropped  = true;
+            }
+            else if (e.Name == QuestSignals.SLIDE_INSERTED)
+            {
+                VRLWorks.CompleteMicroscope(3, e.Name);
+                slideInserted = true;
+            }
 
             if (samplePicked && samplePlaced && waterDropped && slideInserted)
                 Complete();

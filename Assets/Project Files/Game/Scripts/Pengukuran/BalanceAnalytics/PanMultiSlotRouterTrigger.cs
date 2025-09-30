@@ -152,12 +152,17 @@ namespace FatahDev
                         mass += sugar.massGram;
                     }
                 }
+                
             }
 
             SugarCount = count;
             TotalMassGram = mass;
-            
-            
+
+            if (targetSlots != null && SugarCount >= targetSlots.Length)
+            {
+                QuestEvents.Emit(QuestSignals.BALANCE_SAMPLE_PLACED);
+            }
+
             OnCountAndMassChanged?.Invoke(SugarCount, TotalMassGram);
         }
 

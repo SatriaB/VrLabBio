@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace FatahDev
 {
-    public enum PanelId { MainMenu, Settings, Tutorial, Hud }
+    public enum PanelId { Login, MainMenu, Settings, Tutorial, Hud }
 
     [Serializable]
     public class PanelEntry
@@ -29,7 +29,8 @@ namespace FatahDev
             foreach (var p in panels) if (p.root) p.root.SetActive(p.id == id);
             Current = id;
         }
-
+        
+        public void ShowLogin() => Show(PanelId.Login);
         public void ShowMainMenu() => Show(PanelId.MainMenu);
         public void ShowSettings() => Show(PanelId.Settings);
         public void ShowTutorial() => Show(PanelId.Tutorial);

@@ -17,7 +17,7 @@ namespace FatahDev
         [SerializeField] private InteractionLayerMask lockedInteractionLayer;
 
         // ====== Tambahan untuk Quest ======
-        public enum StationInstrumentKind { None, Caliper, Micrometer }
+        public enum StationInstrumentKind { None, Caliper, Micrometer, Balance }
 
         [Header("Quest Bridge")]
         [Tooltip("Jenis alat yang diparkir di station ini")]
@@ -113,7 +113,9 @@ namespace FatahDev
                 case StationInstrumentKind.Caliper:
                     return QuestSignals.CALIPER_SPECIMEN_PLACED;
                 case StationInstrumentKind.Micrometer:
-                    return QuestSignals.MICROMETER_SPECIMEN_PLACED;
+                    return QuestSignals.MICROMETER_PLACED;
+                case StationInstrumentKind.Balance:
+                    return QuestSignals.BALANCE_CONTAINER_PLACED;
 
                 default:
                     return null;

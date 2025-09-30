@@ -2,14 +2,13 @@
 {
     public class CaliperGoal : QuestGoal
     {
-        public enum Phase { Zero, Place, Contact, Capture }
-        public Phase phase = Phase.Zero;
-
         private string expectedSignal;
+        private int targetIndex;
 
         protected override void OnBegin()
         {
-            expectedSignal = PhaseToSignal(phase);
+            var phase = (Parameters?.GetString("phase", "level") ?? "level").ToLowerInvariant();
+            expectedSignal = PhaseToSignal(phase, out targetIndex);
             QuestEvents.Subscribe(expectedSignal, OnEvent);
         }
 
@@ -22,17 +21,26 @@
                 QuestEvents.Unsubscribe(expectedSignal, OnEvent);
         }
 
-        private void OnEvent(QuestEvents.QuestEventData e) => Complete();
+        private void OnEvent(QuestEvents.QuestEventData e)
+        {
+            VRLWorks.CompleteCaliper(targetIndex, e.Name);
+            Complete();
+        }
 
-        private static string PhaseToSignal(Phase p)
+        private static string PhaseToSignal(string p, out int index)
         {
             switch (p)
             {
-                case Phase.Place:   return QuestSignals.CALIPER_SPECIMEN_PLACED;
-                case Phase.Contact: return QuestSignals.CALIPER_CONTACT_OK;
-                case Phase.Capture: return QuestSignals.CALIPER_MEASURE_CAPTURED;
+                case "Place":   
+                    index = 0;
+                    return QuestSignals.CALIPER_PLACED;
+                case "Contact": 
+                    index = 1;
+                    return QuestSignals.CALIPER_SPECIMEN_PLACED;
+                //case Phase.Capture: return QuestSignals.CALIPER_MEASURE_CAPTURED;
             }
 
+            index = 0;
             return "";
         }
     }

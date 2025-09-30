@@ -102,7 +102,7 @@ namespace FatahDev
             {
                 case InstrumentKind.Caliper:
                     // step "place" Caliper
-                    return QuestSignals.CALIPER_SPECIMEN_PLACED;
+                    return QuestSignals.CALIPER_PLACED;
                 case InstrumentKind.Micrometer:
                     // step "place" Micrometer
                     return QuestSignals.MICROMETER_SPECIMEN_PLACED;

@@ -5,13 +5,15 @@
     public class SetTurretGoal : QuestGoal
     {
         private int targetMagnification;
+        private int targetIndex;
         private string targetSignal;
 
         protected override void OnBegin()
         {
             // baca param dari runner/catalog
             targetMagnification = Parameters?.GetInt("objective", 4) ?? 4;
-            targetSignal = MapSignal(targetMagnification);
+            targetSignal = MapSignal(targetMagnification, out int index);
+            targetIndex = index;
 
             // fallback aman kalau angka tidak valid
             if (string.IsNullOrEmpty(targetSignal))
@@ -37,18 +39,29 @@
         private void OnTurretEvent(QuestEvents.QuestEventData e)
         {
             // Karena kita subscribe ke event-name spesifik, cukup Complete().
+            VRLWorks.CompleteMicroscope(targetIndex, e.Name);
             Complete();
         }
 
-        private static string MapSignal(int magnification)
+        private static string MapSignal(int magnification, out int index)
         {
             switch (magnification)
             {
-                case 4:   return QuestSignals.OBJECTIVE_SET_4X;
-                case 10:  return QuestSignals.OBJECTIVE_SET_10X;
-                case 40:  return QuestSignals.OBJECTIVE_SET_40X;
-                case 100: return QuestSignals.OBJECTIVE_SET_100X;
-                default:  return null;
+                case 4:
+                    index = 5;
+                    return QuestSignals.OBJECTIVE_SET_4X;
+                case 10:  
+                    index = 6;
+                    return QuestSignals.OBJECTIVE_SET_10X;
+                case 40: 
+                    index = 7;
+                    return QuestSignals.OBJECTIVE_SET_40X;
+                case 100: 
+                    index = 8;
+                    return QuestSignals.OBJECTIVE_SET_100X;
+                default:  
+                    index = 9;
+                    return null;
             }
         }
     }
