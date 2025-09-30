@@ -21,7 +21,7 @@ namespace FatahDev
         public Transform reference;
         public Vector3 localAxis = Vector3.right;
         public float max = 0.15f; // meter, panjang rail Unity
-
+        
         [Header("Calibration")]
         [Tooltip("Panjang real rail caliper sesuai skala (cm). Contoh: 15 cm, 20 cm.")]
         public float realLengthCm = 15f;
@@ -42,6 +42,8 @@ namespace FatahDev
         private float length;             // panjang rail Unity (m)
         private float _editorZeroT;       // posisi editor (m)
         private bool _zeroInitialized;
+        
+        [SerializeField] private GenericCaptureProvider captureProvider;
 
         protected override void Awake()
         {
@@ -71,6 +73,7 @@ namespace FatahDev
         protected override void OnSelectEntered(SelectEnterEventArgs args)
         {
             base.OnSelectEntered(args);
+            CaptureRouter.SetActiveProvider(captureProvider);
             pulling = args.interactorObject;
             RecalcRail();
 

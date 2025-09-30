@@ -18,17 +18,6 @@ namespace FatahDev
         [Range(0,1)] [SerializeField] private float focusCenter = 0.5f;
         [Range(0.05f,1f)] [SerializeField] private float focusWidth = 0.5f;
 
-        // (Legacy opsional—biar kompatibel kalau dipakai tempat lain)
-        [Header("Legacy (opsional)")]
-        [SerializeField] private float minBrightness = 1f;
-        [SerializeField] private float maxBrightness = 1f;
-        [SerializeField] private float minGamma = 1f;
-        [SerializeField] private float maxGamma = 1f;
-        [SerializeField] private float minContrast = 1f;
-        [SerializeField] private float maxContrast = 1f;
-        [SerializeField] private float minVignette = 0.2f;
-        [SerializeField] private float maxVignette = 0.2f;
-
         Material _mat;
 
         void Awake()

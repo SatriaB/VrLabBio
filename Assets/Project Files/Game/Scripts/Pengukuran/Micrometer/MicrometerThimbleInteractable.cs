@@ -50,9 +50,10 @@ namespace FatahDev
         [SerializeField] private float slideStart = 0f;         // offset awal (meter)
         [SerializeField] private float slideDistance = 0.005f;  // total jarak geser (meter)
         [SerializeField] private bool clampSlide = true;
-
-// cache
+        
         Vector3 slideAxisVec;
+        
+        [SerializeField] private GenericCaptureProvider captureProvider;
 
 
         protected override void OnEnable()
@@ -90,6 +91,8 @@ namespace FatahDev
 
             rotAxisWorld = AxisWorld(rotateAround);
             refVecWorld  = ReferenceVectorOnPlane(rotAxisWorld, transform.forward);
+            
+            CaptureRouter.SetActiveProvider(captureProvider);
 
             startLocalAngle = GetCurrentLocalAngle();
         }

@@ -7,10 +7,6 @@ namespace FatahDev
     [RequireComponent(typeof(XRSocketInteractor))]
     public class XRSocketEmitOnSelect : MonoBehaviour
     {
-        //public QuestSignalEmitter signalEmitter;
-        public string signalOnSelect = "slide.cover_applied";
-        public string signalOnExit = "";
-
         XRSocketInteractor socket;
 
         void Awake() => socket = GetComponent<XRSocketInteractor>();
@@ -18,7 +14,6 @@ namespace FatahDev
         void OnEnable()
         {
             if (socket != null) socket.selectEntered.AddListener(OnSelectEntered);
-            if (socket != null) socket.selectExited.AddListener(OnSelectExited);
         }
 
         void OnDisable()
@@ -28,12 +23,7 @@ namespace FatahDev
 
         void OnSelectEntered(SelectEnterEventArgs _)
         {
-            if (!string.IsNullOrEmpty(signalOnSelect)) QuestEvents.Emit(signalOnSelect);
-        }
-        
-        void OnSelectExited(SelectExitEventArgs  _)
-        {
-            if (!string.IsNullOrEmpty(signalOnExit)) QuestEvents.Emit(signalOnExit);
+            QuestEvents.Emit(QuestSignals.SLIDE_INSERTED);
         }
     }
 }

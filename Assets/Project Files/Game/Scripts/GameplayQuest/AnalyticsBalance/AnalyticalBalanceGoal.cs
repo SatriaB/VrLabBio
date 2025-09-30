@@ -1,0 +1,48 @@
+﻿namespace FatahDev
+{
+    public class AnalyticalBalanceGoal : QuestGoal
+    {
+        private string expectedSignal;
+
+        protected override void OnBegin()
+        {
+            var phase = (Parameters?.GetString("phase", "level") ?? "level").ToLowerInvariant();
+            expectedSignal = PhaseToSignal(phase);
+
+            if (string.IsNullOrEmpty(expectedSignal))
+            {
+                UnityEngine.Debug.LogWarning($"[AnalyticalBalanceGoal] phase '{phase}' tidak valid. Fallback 'level'.");
+            }
+
+            QuestEvents.Subscribe(expectedSignal, OnEvent);
+        }
+
+        protected override void OnCancel()   => Unsub();
+        protected override void OnComplete() => Unsub();
+
+        private void Unsub()
+        {
+            if (!string.IsNullOrEmpty(expectedSignal))
+                QuestEvents.Unsubscribe(expectedSignal, OnEvent);
+        }
+
+        // signature: (QuestEvents.QuestEventData e)
+        private void OnEvent(QuestEvents.QuestEventData e)
+        {
+            Complete();
+        }
+
+        private static string PhaseToSignal(string phase)
+        {
+            switch (phase)
+            {
+                case "place_container": return QuestSignals.BALANCE_CONTAINER_PLACED;
+                case "place_sample":    return QuestSignals.BALANCE_SAMPLE_PLACED;
+                case "stable":          return QuestSignals.BALANCE_STABLE_READING;
+                case "capture":         return QuestSignals.BALANCE_CAPTURED;
+                case "clean":           return QuestSignals.BALANCE_CLEANED;
+                default:                return null;
+            }
+        }
+    }
+}

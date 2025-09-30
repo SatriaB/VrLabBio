@@ -124,6 +124,8 @@ namespace FatahDev
             specimen.SetParent(anchor, false);
             specimen.localPosition = Vector3.zero;
             specimen.localRotation = Quaternion.identity;
+            
+            QuestEvents.Emit(QuestSignals.PINSET_SAMPLE_PICKED);
         }
 
         private void DetachToSlide(Transform snapPoint)
@@ -151,6 +153,8 @@ namespace FatahDev
 
             currentBody = null;
             currentCols.Clear();
+            
+            QuestEvents.Emit(QuestSignals.SAMPLE_PLACED_ON_SLIDE);
         }
 
         private void DetachToWorld()
