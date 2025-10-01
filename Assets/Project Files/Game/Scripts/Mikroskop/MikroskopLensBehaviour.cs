@@ -140,8 +140,15 @@ namespace FatahDev
             optics.Apply(lensProfiles[idx]);
             
             magnificationUI.SetStepIndex(idx);
-            QuestEvents.Emit($"turret.set.{objective}");
             Debug.Log($"[Microscope] Active lens: {lensProfiles[idx].displayName}");
+            
+            switch (objective)
+            {
+                case 4:   QuestEvents.Emit(QuestSignals.OBJECTIVE_SET_4X);   break;
+                case 10:  QuestEvents.Emit(QuestSignals.OBJECTIVE_SET_10X);  break;
+                case 40:  QuestEvents.Emit(QuestSignals.OBJECTIVE_SET_40X);  break;
+                case 100: QuestEvents.Emit(QuestSignals.OBJECTIVE_SET_100X); break;
+            }
         }
     }
 }

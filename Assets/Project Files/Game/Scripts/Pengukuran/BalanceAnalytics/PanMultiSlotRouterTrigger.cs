@@ -22,7 +22,9 @@ namespace FatahDev
 
         [Header("Counting (opsional)")]
         [SerializeField] private bool enableCounting = true;
-        public UnityEvent<int, float> OnCountAndMassChanged; // (count, totalMassGram)
+        public UnityEvent<int, float> OnCountAndMassChanged;
+        
+        [SerializeField] private GenericCaptureProvider captureProvider;
 
         public int SugarCount { get; private set; }
         public float TotalMassGram { get; private set; }
@@ -37,9 +39,8 @@ namespace FatahDev
 
         private void Awake()
         {
-            if (!interactionManager) interactionManager = FindObjectOfType<XRInteractionManager>();
+            if (!interactionManager) interactionManager = FindAnyObjectByType<XRInteractionManager>();
 
-            // Dengarkan perubahan di setiap slot supaya perhitungan ikut update
             if (enableCounting && targetSlots != null)
             {
                 foreach (var s in targetSlots)
@@ -92,7 +93,9 @@ namespace FatahDev
                 if (Vector3.Distance(a, sugarGrab.transform.position) > maxSeatDistance) return;
             }
 
-            if (!interactionManager) interactionManager = FindObjectOfType<XRInteractionManager>();
+            if (!interactionManager) interactionManager = FindAnyObjectByType<XRInteractionManager>();
+            
+            CaptureRouter.SetActiveProvider(captureProvider);
             interactionManager.SelectEnter(best, interactable);
 
             lastSeatTime[interactable] = Time.unscaledTime;
@@ -149,12 +152,17 @@ namespace FatahDev
                         mass += sugar.massGram;
                     }
                 }
+                
             }
 
             SugarCount = count;
             TotalMassGram = mass;
-            
-            
+
+            if (targetSlots != null && SugarCount >= targetSlots.Length)
+            {
+                QuestEvents.Emit(QuestSignals.BALANCE_SAMPLE_PLACED);
+            }
+
             OnCountAndMassChanged?.Invoke(SugarCount, TotalMassGram);
         }
 
