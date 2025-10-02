@@ -65,6 +65,8 @@ namespace FatahDev
 
         private void OnSelectEntered(SelectEnterEventArgs args)
         {
+            if (IsDocked) return;
+            
             IsDocked = true;
             CurrentCaliperGrab = args.interactableObject.transform.GetComponent<XRGrabInteractable>();
             if (CurrentCaliperGrab != null)
@@ -77,9 +79,8 @@ namespace FatahDev
             // === Emit sinyal QUEST untuk step "place"
             if (emitSignalOnDock)
             {
-                string sig = !string.IsNullOrEmpty(overrideDockSignal)
-                    ? overrideDockSignal
-                    : AutoDockSignal();
+                string sig = AutoDockSignal();
+                Debug.Log(sig);
                 if (!string.IsNullOrEmpty(sig))
                     QuestEvents.Emit(sig);
             }
@@ -111,12 +112,11 @@ namespace FatahDev
             switch (instrumentKind)
             {
                 case StationInstrumentKind.Caliper:
-                    return QuestSignals.CALIPER_SPECIMEN_PLACED;
+                    return QuestSignals.CALIPER_PLACED;
                 case StationInstrumentKind.Micrometer:
                     return QuestSignals.MICROMETER_PLACED;
                 case StationInstrumentKind.Balance:
                     return QuestSignals.BALANCE_CONTAINER_PLACED;
-
                 default:
                     return null;
             }

@@ -1,4 +1,6 @@
-﻿namespace FatahDev
+﻿using UnityEngine;
+
+namespace FatahDev
 {
     public class CaliperGoal : QuestGoal
     {
@@ -7,8 +9,9 @@
 
         protected override void OnBegin()
         {
-            var phase = (Parameters?.GetString("phase", "level") ?? "level").ToLowerInvariant();
+            var phase = Parameters?.GetString("phase", "level") ?? "level";
             expectedSignal = PhaseToSignal(phase, out targetIndex);
+            
             QuestEvents.Subscribe(expectedSignal, OnEvent);
         }
 
@@ -32,10 +35,10 @@
             switch (p)
             {
                 case "Place":   
-                    index = 0;
+                    index = 1;
                     return QuestSignals.CALIPER_PLACED;
                 case "Contact": 
-                    index = 1;
+                    index = 2;
                     return QuestSignals.CALIPER_SPECIMEN_PLACED;
                 //case Phase.Capture: return QuestSignals.CALIPER_MEASURE_CAPTURED;
             }

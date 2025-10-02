@@ -91,7 +91,6 @@ namespace FatahDev
 
             string pngPath = Path.Combine(baseDir, baseName + ".png");
             File.WriteAllBytes(pngPath, tex.EncodeToPNG());
-            Destroy(tex);
 
             // 3) Metadata JSON
             string metaJson = BuildMetadataJson(moduleName, pngPath, metadata);
@@ -99,6 +98,8 @@ namespace FatahDev
 
             Debug.Log($"[Capture] Saved: {pngPath}");
             onCaptureSaved?.Invoke(moduleName, pngPath, metaJson);
+            CaptureRouter.ActiveProvider.AutoUpload_OnCapturedTexture(tex);
+            Destroy(tex);
         }
 
         private static string Sanitize(string name)

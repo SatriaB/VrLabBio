@@ -11,16 +11,13 @@ namespace FatahDev
         [SerializeField] private GameObject[] menuOnlyObjects;
         [SerializeField] private GameObject[] gameOnlyObjects;
 
-        [SerializeField] private CharacterController characterController;
 
         [Header("Login Gate")]
         [SerializeField] private bool requireLogin = true;
 
         private void Start()
         {
-            // Default: kunci movement di awal
-            if (characterController != null) characterController.enabled = false;
-
+            GameController.Instance.DisableCharacterController();
             // Jika butuh login dan belum ada token → tampilkan panel Login
             if (requireLogin && string.IsNullOrEmpty(VRLAuthState.Instance?.Token))
             {
@@ -37,7 +34,8 @@ namespace FatahDev
 
         public void OnClickPlay()
         {
-            if (characterController != null) characterController.enabled = true;
+            GameController.Instance.EnableCharacterController();
+            
             SetGroupActive(menuOnlyObjects, false);
             SetGroupActive(gameOnlyObjects, true);
             panelRouter.ShowHud();

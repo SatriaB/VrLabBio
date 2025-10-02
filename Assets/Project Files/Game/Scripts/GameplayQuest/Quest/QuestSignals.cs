@@ -19,7 +19,7 @@
         #endregion
         
         #region Caliper
-        public const string CALIPER_PLACED  = "CALIPER_SPECIMEN_PLACED";
+        public const string CALIPER_PLACED  = "CALIPER_PLACED";
         public const string CALIPER_SPECIMEN_PLACED  = "CALIPER_SPECIMEN_PLACED";
         public const string CALIPER_CONTACT_OK       = "CALIPER_CONTACT_OK";
         public const string CALIPER_MEASURE_CAPTURED = "CALIPER_MEASURE_CAPTURED";
