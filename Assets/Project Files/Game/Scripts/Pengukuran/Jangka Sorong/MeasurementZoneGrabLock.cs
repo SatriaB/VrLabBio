@@ -25,9 +25,6 @@ namespace FatahDev
         [Tooltip("Emit sinyal quest saat alat masuk/tersocket (disarankan ON).")]
         [SerializeField] private bool emitSignalOnEnter = true;
 
-        [Tooltip("Override sinyal ENTER (kosongkan untuk otomatis sesuai jenis alat).")]
-        [SerializeField] private string overrideEnterSignal = "";
-
         [Tooltip("Emit sinyal saat alat keluar/unsocket (opsional).")]
         [SerializeField] private bool emitSignalOnExit = false;
 
@@ -73,7 +70,7 @@ namespace FatahDev
             // === Emit sinyal QUEST untuk step "place"
             if (emitSignalOnEnter)
             {
-                var sig = !string.IsNullOrEmpty(overrideEnterSignal) ? overrideEnterSignal : AutoEnterSignal();
+                var sig = AutoEnterSignal();
                 if (!string.IsNullOrEmpty(sig))
                     QuestEvents.Emit(sig);
             }
@@ -102,7 +99,7 @@ namespace FatahDev
             {
                 case InstrumentKind.Caliper:
                     // step "place" Caliper
-                    return QuestSignals.CALIPER_PLACED;
+                    return QuestSignals.CALIPER_SPECIMEN_PLACED;
                 case InstrumentKind.Micrometer:
                     // step "place" Micrometer
                     return QuestSignals.MICROMETER_SPECIMEN_PLACED;
