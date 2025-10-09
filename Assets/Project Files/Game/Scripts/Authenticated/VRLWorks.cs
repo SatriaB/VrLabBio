@@ -8,16 +8,19 @@ namespace FatahDev
 {
     public enum WorkStepGroupId
     {
-        Microscope = 2, // Mikroskop
-        Caliper = 3, // Jangka Sorong
-        Micrometer = 4, // Micrometer
-        AnalyticalBalance = 5 // Neraca Analitik
+        Titration = 1,
+        Titration2 =2,
+        Microscope = 3, // Mikroskop
+        Rulers = 4,
+        Caliper = 5, // Jangka Sorong
+        Micrometer = 6, // Micrometer
+        AnalyticalBalance = 6 // Neraca Analitik
     }
 
     [Serializable]
     internal class CompleteStepRequest
     {
-        public int work_field_id;
+        public int work_step_id;
         public bool is_completed;
         public string result;
     }
@@ -76,7 +79,7 @@ namespace FatahDev
 
             var body = new CompleteStepRequest
             {
-                work_field_id = workStepId,
+                work_step_id = workStepId,
                 is_completed = isCompleted,
                 result = result ?? string.Empty
             };
@@ -84,6 +87,7 @@ namespace FatahDev
 
             using (var req = new UnityWebRequest(url, UnityWebRequest.kHttpVerbPOST))
             {
+                //UnityWebRequest req = new UnityWebRequest(url, "POST");
                 req.uploadHandler = new UploadHandlerRaw(Encoding.UTF8.GetBytes(json));
                 req.downloadHandler = new DownloadHandlerBuffer();
                 req.SetRequestHeader("Content-Type", "application/json");
@@ -92,9 +96,11 @@ namespace FatahDev
                 req.timeout = _timeoutSeconds;
 
                 yield return req.SendWebRequest();
+            Debug.Log("URL : " + url);
+            Debug.Log("JSON : " + json);
 
 #if UNITY_2020_2_OR_NEWER
-                bool hasError = req.result != UnityWebRequest.Result.Success;
+            bool hasError = req.result != UnityWebRequest.Result.Success;
 #else
                 bool hasError = req.isNetworkError || req.isHttpError;
 #endif
@@ -193,6 +199,7 @@ namespace FatahDev
                 req.timeout = _timeoutSeconds;
 
                 yield return req.SendWebRequest();
+                Debug.Log("CompleteStep");
 
 #if UNITY_2020_2_OR_NEWER
                 bool hasError = req.result != UnityWebRequest.Result.Success;

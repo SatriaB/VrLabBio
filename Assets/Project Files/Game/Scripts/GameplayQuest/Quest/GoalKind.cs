@@ -7,6 +7,7 @@
         SetTurret,
         Caliper,
         Micrometer,
-        AnalyticalBalance
+        AnalyticalBalance,
+        Titration
     }
 }

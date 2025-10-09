@@ -74,6 +74,11 @@ namespace FatahDev
             lastActiveId = stepId;
         }
 
+        public void HandleStepComplete(string stepId)
+        {
+            HandleStepFinished(stepId, true);
+        }
+
         public void HandleStepFinished(string stepId, bool isDone)
         {
             if (items.TryGetValue(stepId, out var it))
@@ -82,6 +87,8 @@ namespace FatahDev
                 it.SetActive(false);
             }
         }
+
+
 
         public void HandleQuestCompleted()
         {
