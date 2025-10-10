@@ -4309,6 +4309,18 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+        - m_Target: {fileID: 8197497970062755711}
+          m_TargetAssemblyTypeName: ScenarioStateChecker, Assembly-CSharp
+          m_MethodName: BoolStateTrue
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 0
+            m_BoolArgument: 0
+          m_CallState: 2
     triggered: 0
 --- !u!1 &1654853535036927509
 GameObject:
@@ -9000,34 +9012,10 @@ MonoBehaviour:
       m_Calls: []
   m_HoverEntered:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8197497970062755711}
-        m_TargetAssemblyTypeName: ScenarioStateChecker, Assembly-CSharp
-        m_MethodName: IntegerStateAdd
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   m_HoverExited:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8197497970062755711}
-        m_TargetAssemblyTypeName: ScenarioStateChecker, Assembly-CSharp
-        m_MethodName: IntegerStateSubtract
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   m_FirstSelectEntered:
     m_PersistentCalls:
       m_Calls: []
@@ -17012,12 +17000,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 500b07b1dfba4dd4cb0cbbda54c6dfad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ScenarioStateChecker
-  boolState: []
-  integerState:
-  - count: 0
-    targetCount: 1
+  boolState:
+  - checkName: 0
     stayComplete: 0
     isFulfilled: 0
+  integerState: []
   OnFulfilled:
     m_PersistentCalls:
       m_Calls:
@@ -18365,6 +18352,18 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+        - m_Target: {fileID: 8197497970062755711}
+          m_TargetAssemblyTypeName: ScenarioStateChecker, Assembly-CSharp
+          m_MethodName: BoolStateFalse
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 0
+            m_BoolArgument: 0
+          m_CallState: 2
     triggered: 0
   - targetAngle: 0
     margin: 10
@@ -18432,6 +18431,18 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 1
           m_CallState: 2
+        - m_Target: {fileID: 8197497970062755711}
+          m_TargetAssemblyTypeName: ScenarioStateChecker, Assembly-CSharp
+          m_MethodName: BoolStateFalse
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 0
+            m_BoolArgument: 1
+          m_CallState: 2
     triggered: 0
   - targetAngle: 0
     margin: 90
@@ -18497,6 +18508,18 @@ MonoBehaviour:
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+        - m_Target: {fileID: 8197497970062755711}
+          m_TargetAssemblyTypeName: ScenarioStateChecker, Assembly-CSharp
+          m_MethodName: BoolStateFalse
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 0
             m_BoolArgument: 1
           m_CallState: 2
     triggered: 0
@@ -22930,6 +22953,18 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: tit_write
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 8197497970062755711}
+        m_TargetAssemblyTypeName: ScenarioStateChecker, Assembly-CSharp
+        m_MethodName: BoolStateFalse
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 0
           m_BoolArgument: 0
         m_CallState: 2
   OnUnFulfilled:
