@@ -4284,6 +4284,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   result: GOAL_COMPLETED
+  workStepGroupId: 1
 --- !u!1 &3260658590984780881
 GameObject:
   m_ObjectHideFlags: 0
@@ -4683,7 +4684,7 @@ Transform:
   m_GameObject: {fileID: 3607574111733823337}
   serializedVersion: 2
   m_LocalRotation: {x: 0.00000007585454, y: -0.99144495, z: 0.13052596, w: 0.0000005761735}
-  m_LocalPosition: {x: 8.8293, y: 1.5273, z: 6.594}
+  m_LocalPosition: {x: 8.8293, y: 1.4904, z: 6.6242}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4846,7 +4847,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 8.894, y: 1.0732821, z: 6.751}
-  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_LocalScale: {x: 4, y: 4, z: 4}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6641676693464209115}
