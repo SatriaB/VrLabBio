@@ -25,6 +25,7 @@ namespace FatahDev
         
         public ObjectiveLensProfile[] lensProfiles; // urutan: 4x,10x,40x,100x
         public MicroscopeOpticsController optics;
+        public GenericCaptureProvider capureProvider;
         
         [SerializeField] private MicroscopeMagnificationUI magnificationUI;
 
@@ -32,7 +33,7 @@ namespace FatahDev
         {
             if (lensProfiles == null || lensProfiles.Length == 0 || optics == null) return;
             
-            optics.Apply(lensProfiles[0]);
+            optics.Apply(lensProfiles[0], capureProvider);
         }
 
         protected override void OnSelectEntered(SelectEnterEventArgs args)
@@ -137,7 +138,7 @@ namespace FatahDev
             int idx = Mathf.Clamp(stepIndex % lensProfiles.Length, 0, lensProfiles.Length - 1);
             int objective = mags[Mathf.Clamp(idx, 0, mags.Length - 1)];
 
-            optics.Apply(lensProfiles[idx]);
+            optics.Apply(lensProfiles[idx], capureProvider);
             
             magnificationUI.SetStepIndex(idx);
             Debug.Log($"[Microscope] Active lens: {lensProfiles[idx].displayName}");

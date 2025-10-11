@@ -9,6 +9,7 @@ namespace FatahDev
         {
             new() { id="micro_place",   title="Tempatkan Mikrometer",            kind=GoalKind.Micrometer, phase="place"},
             new() { id="micro_specimen_place", title="Tempatkan benda",          kind=GoalKind.Micrometer, phase="specimen_place" },
+            new() { id="micro_capture", title="Kirim gambar hasil pengukuran",          kind=GoalKind.Micrometer, phase="capture" },
         };
 
         protected override IEnumerable<QuestSpec> GetActiveCatalog() => DefaultCatalog;

@@ -31,7 +31,7 @@
         {
             if (e.Name == QuestSignals.MICROSCOPE_ON)
             {
-                VRLWorks.CompleteMicroscope(4, e.Name);
+                VRLWorks.CompleteMicroscope(28, e.Name);
                 Complete();
             }
         }

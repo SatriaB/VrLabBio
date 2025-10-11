@@ -75,22 +75,22 @@
             // mode gabungan (all)
             if (e.Name == QuestSignals.PINSET_SAMPLE_PICKED)
             {
-                VRLWorks.CompleteMicroscope(0, e.Name);
+                VRLWorks.CompleteMicroscope(23, e.Name);
                 samplePicked  = true;
             }
             else if (e.Name == QuestSignals.SAMPLE_PLACED_ON_SLIDE)
             {
-                VRLWorks.CompleteMicroscope(1, e.Name);
+                VRLWorks.CompleteMicroscope(24, e.Name);
                 samplePlaced  = true;
             }
             else if (e.Name == QuestSignals.WATER_DROPPED_ON_SLIDE)
             {
-                VRLWorks.CompleteMicroscope(2, e.Name);
+                VRLWorks.CompleteMicroscope(25, e.Name);
                 waterDropped  = true;
             }
             else if (e.Name == QuestSignals.SLIDE_INSERTED)
             {
-                VRLWorks.CompleteMicroscope(3, e.Name);
+                VRLWorks.CompleteMicroscope(31, e.Name);
                 slideInserted = true;
             }
 

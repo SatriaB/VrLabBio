@@ -490,7 +490,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3678685248938135764, guid: 273c7a62a9ea6ea4a9f4fdab510ec101, type: 3}
       propertyPath: OnFulfilled.m_PersistentCalls.m_Calls.Array.data[7].m_Arguments.m_StringArgument
-      value: 0
+      value: Anim
       objectReference: {fileID: 0}
     - target: {fileID: 3724799181679710062, guid: 273c7a62a9ea6ea4a9f4fdab510ec101, type: 3}
       propertyPath: m_IsActive

@@ -8465,7 +8465,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -9326,7 +9326,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 94
+  m_Constraints: 0
   m_CollisionDetection: 0
 --- !u!59 &8917337062286770744
 HingeJoint:
@@ -9535,7 +9535,7 @@ MonoBehaviour:
   maxAngle: 90
   checkpoints:
   - targetAngle: 0
-    margin: 10
+    margin: 20
     repeatable: 0
     onCheckpointReached:
       m_PersistentCalls:
@@ -9566,7 +9566,7 @@ MonoBehaviour:
           m_CallState: 2
     triggered: 0
   - targetAngle: 90
-    margin: 10
+    margin: 20
     repeatable: 0
     onCheckpointReached:
       m_PersistentCalls:
@@ -10667,7 +10667,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0.013322996}
-  m_LocalScale: {x: 0.0006, y: 0.0006, z: 0.018206596}
+  m_LocalScale: {x: 0.0001, y: 0.0001, z: 0.018206596}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7273481564308908766}

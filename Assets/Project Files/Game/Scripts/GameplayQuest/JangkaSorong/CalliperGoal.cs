@@ -34,17 +34,19 @@ namespace FatahDev
         {
             switch (p)
             {
-                case "Place":   
-                    index = 1;
+                case "Place":
+                    index = 60;
                     return QuestSignals.CALIPER_PLACED;
-                case "Contact": 
-                    index = 2;
+                case "Contact":
+                    index = 61;
                     return QuestSignals.CALIPER_SPECIMEN_PLACED;
-                //case Phase.Capture: return QuestSignals.CALIPER_MEASURE_CAPTURED;
-            }
+                default:
+                    index = 60;
+                    return null;
 
-            index = 0;
-            return "";
+                    //case Phase.Capture: return QuestSignals.CALIPER_MEASURE_CAPTURED;
+            }
+            return null;
         }
     }
 }

@@ -9,7 +9,7 @@ namespace FatahDev
         {
             new() { id="cal_place",   title="Letakkan Jangka Sorong",  kind=GoalKind.Caliper, phase="Place"},
             new() { id="cal_contact",   title="Letakkan benda",        kind=GoalKind.Caliper, phase="Contact"},
-            //new() { id="cal_capture", title="Capture hasil ukur",    kind=GoalKind.Caliper, phase="capture"},
+            new() { id="cal_capture", title="Capture hasil ukur",    kind=GoalKind.Caliper, phase="capture"},
         };
 
         protected override IEnumerable<QuestSpec> GetActiveCatalog() => DefaultCatalog;

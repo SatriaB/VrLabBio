@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -11,10 +12,10 @@ namespace FatahDev
         Titration = 1,
         Titration2 =2,
         Microscope = 3, // Mikroskop
-        Rulers = 4,
+        //Rulers = 4,
+        AnalyticalBalance = 4, // Neraca Analitik
         Caliper = 5, // Jangka Sorong
-        Micrometer = 6, // Micrometer
-        AnalyticalBalance = 6 // Neraca Analitik
+        Micrometer = 6 // Micrometer
     }
 
     [Serializable]
@@ -186,11 +187,43 @@ namespace FatahDev
             {
                 new MultipartFormDataSection("work_step_id", workStepId.ToString())
             };
-            if (fieldId.HasValue)
-                form.Add(new MultipartFormDataSection("field_id", fieldId.Value.ToString()));
+
+            //if (fieldId.HasValue)
+
+            switch (workStepId)
+            {
+                case 35:
+                    fieldId = 9;
+                    break;
+                case 40:
+                    fieldId = 10;
+                    break;
+                case 45:
+                    fieldId = 11;
+                    break;
+                case 51:
+                    fieldId = 12;
+                    break;
+                case 59:
+                    fieldId = 13;
+                    break;
+                case 62:
+                    fieldId = 14;
+                    break;
+                case 67:
+                    fieldId = 15;
+                    break;
+                default:
+                    fieldId = 13;
+                    break;
+            }
+
+            form.Add(new MultipartFormDataSection("work_field_id", fieldId.Value.ToString()));
 
             form.Add(new MultipartFormFileSection("file", fileBytes, fileName, mimeType));
 
+            LogMultipartList(form);
+            Debug.Log("URL : " + url);
             using (var req = UnityWebRequest.Post(url, form))
             {
                 req.downloadHandler = new DownloadHandlerBuffer();
@@ -216,8 +249,33 @@ namespace FatahDev
             }
         }
 
+        public static void LogMultipartList(List<IMultipartFormSection> sections)
+        {
+            if (sections == null || sections.Count == 0)
+            {
+                Debug.Log("List is empty or null");
+                return;
+            }
 
-// === Tambah di dalam class VRLWorks ===
+            List<string> sectionInfos = new List<string>();
+
+            for (int i = 0; i < sections.Count; i++)
+            {
+                var section = sections[i];
+                string info = $"[{i}] Name={section.sectionName}, ContentType={section.contentType}";
+
+                if (section is MultipartFormFileSection file)
+                {
+                    info += $", FileName={file.fileName}, DataLength={file.sectionData.Length}";
+                }
+
+                sectionInfos.Add(info);
+            }
+
+            Debug.Log("Form : \n" + string.Join("\n", sectionInfos));
+        }
+
+        // === Tambah di dalam class VRLWorks ===
         public static void UploadFile(
             WorkStepGroupId group,
             int workStepId,
@@ -256,6 +314,7 @@ namespace FatahDev
             Action<bool, string> onDone = null)
         {
             if (!tex) { onDone?.Invoke(false, "Texture null."); return; }
+            Debug.Log("Upload Texture On ID : " + group.ToString() + "/" + workStepId);
 #if UNITY_2020_1_OR_NEWER
             var jpg = tex.EncodeToJPG(jpgQuality);
 #else

@@ -3972,7 +3972,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 94
+  m_Constraints: 0
   m_CollisionDetection: 0
 --- !u!59 &3262739543432292886
 HingeJoint:
@@ -4181,7 +4181,7 @@ MonoBehaviour:
   maxAngle: 90
   checkpoints:
   - targetAngle: -90
-    margin: 10
+    margin: 30
     repeatable: 0
     onCheckpointReached:
       m_PersistentCalls:
@@ -4212,7 +4212,7 @@ MonoBehaviour:
           m_CallState: 2
     triggered: 0
   - targetAngle: 0
-    margin: 10
+    margin: 30
     repeatable: 0
     onCheckpointReached:
       m_PersistentCalls:
@@ -4243,7 +4243,7 @@ MonoBehaviour:
           m_CallState: 2
     triggered: 0
   - targetAngle: 90
-    margin: 10
+    margin: 30
     repeatable: 0
     onCheckpointReached:
       m_PersistentCalls:
@@ -4318,7 +4318,7 @@ MonoBehaviour:
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
-            m_StringArgument: 0
+            m_StringArgument: Anim
             m_BoolArgument: 0
           m_CallState: 2
     triggered: 0
@@ -12466,7 +12466,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 94
+  m_Constraints: 0
   m_CollisionDetection: 0
 --- !u!59 &7103066657037303892
 HingeJoint:
@@ -12675,7 +12675,7 @@ MonoBehaviour:
   maxAngle: 90
   checkpoints:
   - targetAngle: 0
-    margin: 10
+    margin: 20
     repeatable: 0
     onCheckpointReached:
       m_PersistentCalls:
@@ -12694,7 +12694,7 @@ MonoBehaviour:
           m_CallState: 2
     triggered: 0
   - targetAngle: -90
-    margin: 10
+    margin: 20
     repeatable: 0
     onCheckpointReached:
       m_PersistentCalls:
@@ -13246,6 +13246,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 3987998294529074330}
+        m_TargetAssemblyTypeName: AlwaysUpright, Assembly-CSharp
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_SelectExited:
     m_PersistentCalls:
       m_Calls:
@@ -13260,6 +13272,18 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 3987998294529074330}
+        m_TargetAssemblyTypeName: AlwaysUpright, Assembly-CSharp
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
         m_CallState: 2
   m_StartingHoverFilters: []
   m_StartingSelectFilters: []
@@ -15016,7 +15040,7 @@ MonoBehaviour:
   liquidController: {fileID: 0}
   decreaseSpeed: 0.025
   thresholds:
-  - threshold: 0.8
+  - threshold: 0.75
     onThresholdReached:
       m_PersistentCalls:
         m_Calls:
@@ -15033,7 +15057,7 @@ MonoBehaviour:
             m_BoolArgument: 0
           m_CallState: 2
     triggered: 0
-  - threshold: 0.7
+  - threshold: 0.65
     onThresholdReached:
       m_PersistentCalls:
         m_Calls:
@@ -15050,7 +15074,7 @@ MonoBehaviour:
             m_BoolArgument: 0
           m_CallState: 2
     triggered: 0
-  - threshold: 0.6
+  - threshold: 0.55
     onThresholdReached:
       m_PersistentCalls:
         m_Calls:
@@ -17001,7 +17025,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ScenarioStateChecker
   boolState:
-  - checkName: 0
+  - checkName: Anim
     stayComplete: 0
     isFulfilled: 0
   integerState: []
@@ -18053,7 +18077,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 94
+  m_Constraints: 0
   m_CollisionDetection: 0
 --- !u!59 &8694540550246656192
 HingeJoint:
@@ -18262,7 +18286,7 @@ MonoBehaviour:
   maxAngle: 90
   checkpoints:
   - targetAngle: -90
-    margin: 10
+    margin: 30
     repeatable: 0
     onCheckpointReached:
       m_PersistentCalls:
@@ -18361,12 +18385,12 @@ MonoBehaviour:
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
-            m_StringArgument: 0
+            m_StringArgument: Anim
             m_BoolArgument: 0
           m_CallState: 2
     triggered: 0
-  - targetAngle: 0
-    margin: 10
+  - targetAngle: -30
+    margin: 20
     repeatable: 0
     onCheckpointReached:
       m_PersistentCalls:
@@ -18440,12 +18464,12 @@ MonoBehaviour:
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
-            m_StringArgument: 0
+            m_StringArgument: Anim
             m_BoolArgument: 1
           m_CallState: 2
     triggered: 0
-  - targetAngle: 0
-    margin: 90
+  - targetAngle: 90
+    margin: 70
     repeatable: 0
     onCheckpointReached:
       m_PersistentCalls:
@@ -18512,14 +18536,14 @@ MonoBehaviour:
           m_CallState: 2
         - m_Target: {fileID: 8197497970062755711}
           m_TargetAssemblyTypeName: ScenarioStateChecker, Assembly-CSharp
-          m_MethodName: BoolStateFalse
+          m_MethodName: BoolStateTrue
           m_Mode: 5
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
-            m_StringArgument: 0
+            m_StringArgument: Anim
             m_BoolArgument: 1
           m_CallState: 2
     triggered: 0
@@ -22964,7 +22988,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 0
+          m_StringArgument: Anim
           m_BoolArgument: 0
         m_CallState: 2
   OnUnFulfilled:

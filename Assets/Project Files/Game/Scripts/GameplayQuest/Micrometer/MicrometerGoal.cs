@@ -39,13 +39,13 @@
             switch (phase)
             {
                 case "place":
-                    index = 0;
+                    index = 65;
                     return QuestSignals.MICROMETER_PLACED;
                 case "specimen_place": 
-                    index = 1;
+                    index = 66;
                     return QuestSignals.MICROMETER_SPECIMEN_PLACED;
                 default:        
-                    index = 0;
+                    index = 65;
                     return null;
             }
         }

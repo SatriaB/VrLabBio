@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace FatahDev
 {
@@ -28,6 +29,8 @@ namespace FatahDev
 
         public string ModuleName => moduleName;
         public Camera SourceCamera => sourceCamera;
+
+        [SerializeField] private UnityEvent onCapture;
 
         private void OnEnable()
         {
@@ -121,6 +124,8 @@ namespace FatahDev
                 VRLWorks.UploadTexturePNG(group, workStepId, tex, name, fieldId,
                     (ok, res) => UnityEngine.Debug.Log(ok ? $"[Upload OK] {res}" : $"[Upload ERR] {res}"));
             }
+
+            onCapture.Invoke();
         }
 
 // ===== helper: ambil workStepId aktif (dinamis kalau ada) =====
@@ -182,10 +187,10 @@ namespace FatahDev
         {
             switch (g)
             {
-                case 0: return WorkStepGroupId.Microscope;
-                case 1: return WorkStepGroupId.Caliper;
-                case 2: return WorkStepGroupId.Micrometer;
-                case 3: return WorkStepGroupId.AnalyticalBalance;
+                case 3: return WorkStepGroupId.Microscope;
+                case 5: return WorkStepGroupId.Caliper;
+                case 6: return WorkStepGroupId.Micrometer;
+                case 4: return WorkStepGroupId.AnalyticalBalance;
                 default: return WorkStepGroupId.Microscope;
             }
         }
@@ -375,5 +380,10 @@ namespace FatahDev
             squareSize = squareSize,
             rootFolder = "Captures"
         };
+
+        public void switchId(int i)
+        {
+            fallbackWorkStepId = i;
+        }
     }
 }

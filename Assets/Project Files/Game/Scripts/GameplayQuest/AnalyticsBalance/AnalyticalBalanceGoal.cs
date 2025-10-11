@@ -39,16 +39,16 @@
             switch (phase)
             {
                 case "place_container":
-                    stepId = 0;
+                    stepId = 57;
                     return QuestSignals.BALANCE_CONTAINER_PLACED;
                 case "place_sample":    
-                    stepId = 1;
+                    stepId = 58;
                     return QuestSignals.BALANCE_SAMPLE_PLACED;
                 /*case "stable":          return QuestSignals.BALANCE_STABLE_READING;
                 case "capture":         return QuestSignals.BALANCE_CAPTURED;
                 case "clean":           return QuestSignals.BALANCE_CLEANED;*/
                 default:                
-                    stepId = 0;
+                    stepId = 57;
                     return null;
             }
         }

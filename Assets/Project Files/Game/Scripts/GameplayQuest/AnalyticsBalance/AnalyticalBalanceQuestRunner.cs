@@ -17,10 +17,10 @@ namespace FatahDev
             {
                 id = "bal_places", title = "Letakkan sampel", kind = GoalKind.AnalyticalBalance, phase = "place_sample"
             },
-            /*new()
+            new()
             {
-                id = "bal_capture", title = "Capture pembacaan", kind = GoalKind.AnalyticalBalance, phase = "capture"
-            },*/
+                id = "bal_capture", title = "Kirim gambar hasil pembacaan", kind = GoalKind.AnalyticalBalance, phase = "capture"
+            }
         };
 
         protected override IEnumerable<QuestSpec> GetActiveCatalog() => DefaultCatalog;

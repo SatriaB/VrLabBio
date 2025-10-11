@@ -1,5 +1,6 @@
 ﻿﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace FatahDev
 {
@@ -9,7 +10,7 @@ namespace FatahDev
         [SerializeField] private Transform contentRoot;
         [SerializeField] private GameObject itemPrefab;
         [SerializeField] private QuestRunner runner; // <- generik, bukan Microscope
-
+        [SerializeField] private UnityEvent onClear;
         private readonly Dictionary<string, QuestTaskItem> items = new();
         private string lastActiveId = null;
 
@@ -86,13 +87,26 @@ namespace FatahDev
                 it.SetDone(isDone);
                 it.SetActive(false);
             }
+            checkClear();
         }
-
-
 
         public void HandleQuestCompleted()
         {
+            
             // Opsional: tampilkan banner/toast "Completed"
+        }
+
+        void checkClear()
+        {
+            int c = 0;
+            foreach (var it in items.Values)
+            {
+                c += it.isDone() ? 1 : 0;
+                if (c >= items.Count)
+                {
+                    onClear.Invoke();
+                }
+            }
         }
 
         // ==== Util ====

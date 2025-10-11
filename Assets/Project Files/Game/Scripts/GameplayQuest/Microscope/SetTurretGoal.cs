@@ -48,19 +48,19 @@
             switch (magnification)
             {
                 case 4:
-                    index = 5;
+                    index = 35;
                     return QuestSignals.OBJECTIVE_SET_4X;
                 case 10:  
-                    index = 6;
+                    index = 40;
                     return QuestSignals.OBJECTIVE_SET_10X;
                 case 40: 
-                    index = 7;
+                    index = 45;
                     return QuestSignals.OBJECTIVE_SET_40X;
                 case 100: 
-                    index = 8;
+                    index = 51;
                     return QuestSignals.OBJECTIVE_SET_100X;
                 default:  
-                    index = 9;
+                    index = 35;
                     return null;
             }
         }
