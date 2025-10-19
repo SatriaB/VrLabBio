@@ -92,7 +92,7 @@ namespace FatahDev
 
         public void HandleQuestCompleted()
         {
-            
+            Debug.Log(gameObject.name + " is Complete");
             // Opsional: tampilkan banner/toast "Completed"
         }
 

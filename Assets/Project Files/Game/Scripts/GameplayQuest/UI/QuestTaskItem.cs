@@ -28,7 +28,7 @@ namespace FatahDev
             if (pendingIcon) pendingIcon.SetActive(!done);
         }
 
-        public bool isDone() => doneIcon;
+        public bool isDone() => doneIcon.activeSelf;
 
         public void SetActive(bool active)
         {

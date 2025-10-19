@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
 namespace FatahDev
@@ -27,6 +28,7 @@ namespace FatahDev
 
         [Header("Release Feel")]
         [SerializeField] private float inheritVelocityFactor = 0.8f;
+        [SerializeField] private UnityEvent onPlaced;
 
         // runtime
         private Transform currentSpecimen;
@@ -155,6 +157,7 @@ namespace FatahDev
             currentCols.Clear();
             
             QuestEvents.Emit(QuestSignals.SAMPLE_PLACED_ON_SLIDE);
+            onPlaced.Invoke();
         }
 
         private void DetachToWorld()

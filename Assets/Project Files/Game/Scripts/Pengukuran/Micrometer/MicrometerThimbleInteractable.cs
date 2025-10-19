@@ -24,7 +24,7 @@ namespace FatahDev
         [SerializeField] private bool clampAngle = true;
 
         [Header("Output")]
-        [Range(0,1)] [SerializeField] private float value01;
+        [Range(0,1)] public float value01;
         public UnityEvent<float> onValueChanged;
 
         [Header("Pose Guard")]
@@ -42,7 +42,7 @@ namespace FatahDev
         Quaternion startKnobWorldRot;
         Vector3    rotAxisWorld;
         Vector3    refVecWorld;     // vRef di bidang ortogonal axis
-        float      startLocalAngle; // sudut lokal awal di sumbu yang dipakai
+        public float startLocalAngle; // sudut lokal awal di sumbu yang dipakai
         
         [Header("Slide (opsional)")]
         [SerializeField] private bool enableSlide = false;      // <- hidupkan kalau mau bisa geser
