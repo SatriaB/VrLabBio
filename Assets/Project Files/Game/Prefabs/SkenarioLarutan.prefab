@@ -11324,6 +11324,78 @@ PrefabInstance:
       propertyPath: m_InteractionLayers.m_Bits
       value: 268435456
       objectReference: {fileID: 0}
+    - target: {fileID: 215521850955976947, guid: 303be6cf29009b84fab3624b3503f81c, type: 3}
+      propertyPath: checkpoints.Array.data[0].onCheckpointReached.m_PersistentCalls.m_Calls.Array.size
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 215521850955976947, guid: 303be6cf29009b84fab3624b3503f81c, type: 3}
+      propertyPath: checkpoints.Array.data[1].onCheckpointReached.m_PersistentCalls.m_Calls.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 215521850955976947, guid: 303be6cf29009b84fab3624b3503f81c, type: 3}
+      propertyPath: checkpoints.Array.data[2].onCheckpointReached.m_PersistentCalls.m_Calls.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 215521850955976947, guid: 303be6cf29009b84fab3624b3503f81c, type: 3}
+      propertyPath: checkpoints.Array.data[0].onCheckpointReached.m_PersistentCalls.m_Calls.Array.data[6].m_Mode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 215521850955976947, guid: 303be6cf29009b84fab3624b3503f81c, type: 3}
+      propertyPath: checkpoints.Array.data[1].onCheckpointReached.m_PersistentCalls.m_Calls.Array.data[4].m_Mode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 215521850955976947, guid: 303be6cf29009b84fab3624b3503f81c, type: 3}
+      propertyPath: checkpoints.Array.data[2].onCheckpointReached.m_PersistentCalls.m_Calls.Array.data[4].m_Mode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 215521850955976947, guid: 303be6cf29009b84fab3624b3503f81c, type: 3}
+      propertyPath: checkpoints.Array.data[0].onCheckpointReached.m_PersistentCalls.m_Calls.Array.data[6].m_Target
+      value: 
+      objectReference: {fileID: 2129243276706980273}
+    - target: {fileID: 215521850955976947, guid: 303be6cf29009b84fab3624b3503f81c, type: 3}
+      propertyPath: checkpoints.Array.data[1].onCheckpointReached.m_PersistentCalls.m_Calls.Array.data[4].m_Target
+      value: 
+      objectReference: {fileID: 2129243276706980273}
+    - target: {fileID: 215521850955976947, guid: 303be6cf29009b84fab3624b3503f81c, type: 3}
+      propertyPath: checkpoints.Array.data[2].onCheckpointReached.m_PersistentCalls.m_Calls.Array.data[4].m_Target
+      value: 
+      objectReference: {fileID: 2129243276706980273}
+    - target: {fileID: 215521850955976947, guid: 303be6cf29009b84fab3624b3503f81c, type: 3}
+      propertyPath: checkpoints.Array.data[0].onCheckpointReached.m_PersistentCalls.m_Calls.Array.data[6].m_MethodName
+      value: BoolStateFalse
+      objectReference: {fileID: 0}
+    - target: {fileID: 215521850955976947, guid: 303be6cf29009b84fab3624b3503f81c, type: 3}
+      propertyPath: checkpoints.Array.data[1].onCheckpointReached.m_PersistentCalls.m_Calls.Array.data[4].m_MethodName
+      value: BoolStateFalse
+      objectReference: {fileID: 0}
+    - target: {fileID: 215521850955976947, guid: 303be6cf29009b84fab3624b3503f81c, type: 3}
+      propertyPath: checkpoints.Array.data[2].onCheckpointReached.m_PersistentCalls.m_Calls.Array.data[4].m_MethodName
+      value: BoolStateTrue
+      objectReference: {fileID: 0}
+    - target: {fileID: 215521850955976947, guid: 303be6cf29009b84fab3624b3503f81c, type: 3}
+      propertyPath: checkpoints.Array.data[0].onCheckpointReached.m_PersistentCalls.m_Calls.Array.data[6].m_TargetAssemblyTypeName
+      value: ScenarioStateChecker, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 215521850955976947, guid: 303be6cf29009b84fab3624b3503f81c, type: 3}
+      propertyPath: checkpoints.Array.data[1].onCheckpointReached.m_PersistentCalls.m_Calls.Array.data[4].m_TargetAssemblyTypeName
+      value: ScenarioStateChecker, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 215521850955976947, guid: 303be6cf29009b84fab3624b3503f81c, type: 3}
+      propertyPath: checkpoints.Array.data[2].onCheckpointReached.m_PersistentCalls.m_Calls.Array.data[4].m_TargetAssemblyTypeName
+      value: ScenarioStateChecker, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 215521850955976947, guid: 303be6cf29009b84fab3624b3503f81c, type: 3}
+      propertyPath: checkpoints.Array.data[0].onCheckpointReached.m_PersistentCalls.m_Calls.Array.data[6].m_Arguments.m_StringArgument
+      value: Anim
+      objectReference: {fileID: 0}
+    - target: {fileID: 215521850955976947, guid: 303be6cf29009b84fab3624b3503f81c, type: 3}
+      propertyPath: checkpoints.Array.data[1].onCheckpointReached.m_PersistentCalls.m_Calls.Array.data[4].m_Arguments.m_StringArgument
+      value: Anim
+      objectReference: {fileID: 0}
+    - target: {fileID: 215521850955976947, guid: 303be6cf29009b84fab3624b3503f81c, type: 3}
+      propertyPath: checkpoints.Array.data[2].onCheckpointReached.m_PersistentCalls.m_Calls.Array.data[4].m_Arguments.m_StringArgument
+      value: Anim
+      objectReference: {fileID: 0}
     - target: {fileID: 393044131152442617, guid: 303be6cf29009b84fab3624b3503f81c, type: 3}
       propertyPath: onTimeElapsed.m_PersistentCalls.m_Calls.Array.size
       value: 2
@@ -11430,7 +11502,7 @@ PrefabInstance:
       objectReference: {fileID: 5562652631308340729}
     - target: {fileID: 6756606243143728088, guid: 303be6cf29009b84fab3624b3503f81c, type: 3}
       propertyPath: OnFulfilled.m_PersistentCalls.m_Calls.Array.size
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6756606243143728088, guid: 303be6cf29009b84fab3624b3503f81c, type: 3}
       propertyPath: OnFulfilled.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
@@ -11442,7 +11514,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6756606243143728088, guid: 303be6cf29009b84fab3624b3503f81c, type: 3}
       propertyPath: OnFulfilled.m_PersistentCalls.m_Calls.Array.data[3].m_Mode
-      value: 1
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6756606243143728088, guid: 303be6cf29009b84fab3624b3503f81c, type: 3}
       propertyPath: OnFulfilled.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -11459,7 +11531,7 @@ PrefabInstance:
     - target: {fileID: 6756606243143728088, guid: 303be6cf29009b84fab3624b3503f81c, type: 3}
       propertyPath: OnFulfilled.m_PersistentCalls.m_Calls.Array.data[3].m_Target
       value: 
-      objectReference: {fileID: 3213102630843626667}
+      objectReference: {fileID: 2129243276706980273}
     - target: {fileID: 6756606243143728088, guid: 303be6cf29009b84fab3624b3503f81c, type: 3}
       propertyPath: OnFulfilled.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
       value: 2
@@ -11477,6 +11549,10 @@ PrefabInstance:
       value: SetActive
       objectReference: {fileID: 0}
     - target: {fileID: 6756606243143728088, guid: 303be6cf29009b84fab3624b3503f81c, type: 3}
+      propertyPath: OnFulfilled.m_PersistentCalls.m_Calls.Array.data[3].m_MethodName
+      value: BoolStateFalse
+      objectReference: {fileID: 0}
+    - target: {fileID: 6756606243143728088, guid: 303be6cf29009b84fab3624b3503f81c, type: 3}
       propertyPath: OnFulfilled.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
       value: FatahDev.QuestTaskListUI, Assembly-CSharp
       objectReference: {fileID: 0}
@@ -11486,7 +11562,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6756606243143728088, guid: 303be6cf29009b84fab3624b3503f81c, type: 3}
       propertyPath: OnFulfilled.m_PersistentCalls.m_Calls.Array.data[3].m_TargetAssemblyTypeName
-      value: FatahDev.QuestTaskListUI, Assembly-CSharp
+      value: ScenarioStateChecker, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 6756606243143728088, guid: 303be6cf29009b84fab3624b3503f81c, type: 3}
       propertyPath: OnFulfilled.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
@@ -11507,6 +11583,10 @@ PrefabInstance:
     - target: {fileID: 6756606243143728088, guid: 303be6cf29009b84fab3624b3503f81c, type: 3}
       propertyPath: OnFulfilled.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_StringArgument
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6756606243143728088, guid: 303be6cf29009b84fab3624b3503f81c, type: 3}
+      propertyPath: OnFulfilled.m_PersistentCalls.m_Calls.Array.data[3].m_Arguments.m_StringArgument
+      value: Anim
       objectReference: {fileID: 0}
     - target: {fileID: 6756606243143728088, guid: 303be6cf29009b84fab3624b3503f81c, type: 3}
       propertyPath: OnFulfilled.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -11574,9 +11654,25 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1826223822776761108, guid: 303be6cf29009b84fab3624b3503f81c, type: 3}
   m_PrefabInstance: {fileID: 182064457889369538}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2129243276706980273 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2236676935171861619, guid: 303be6cf29009b84fab3624b3503f81c, type: 3}
+  m_PrefabInstance: {fileID: 182064457889369538}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 500b07b1dfba4dd4cb0cbbda54c6dfad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ScenarioStateChecker
 --- !u!1 &2809009805211726804 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2629338159519088150, guid: 303be6cf29009b84fab3624b3503f81c, type: 3}
+  m_PrefabInstance: {fileID: 182064457889369538}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &3548914997518892902 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3730834043916464804, guid: 303be6cf29009b84fab3624b3503f81c, type: 3}
   m_PrefabInstance: {fileID: 182064457889369538}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &6917228435089582496 stripped
@@ -12458,6 +12554,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7774699721384161911}
     m_Modifications:
+    - target: {fileID: 215521850955976947, guid: 303be6cf29009b84fab3624b3503f81c, type: 3}
+      propertyPath: checkpoints.Array.data[0].onCheckpointReached.m_PersistentCalls.m_Calls.Array.data[6].m_Target
+      value: 
+      objectReference: {fileID: 3548914997518892902}
+    - target: {fileID: 215521850955976947, guid: 303be6cf29009b84fab3624b3503f81c, type: 3}
+      propertyPath: checkpoints.Array.data[1].onCheckpointReached.m_PersistentCalls.m_Calls.Array.data[4].m_Target
+      value: 
+      objectReference: {fileID: 3548914997518892902}
+    - target: {fileID: 215521850955976947, guid: 303be6cf29009b84fab3624b3503f81c, type: 3}
+      propertyPath: checkpoints.Array.data[2].onCheckpointReached.m_PersistentCalls.m_Calls.Array.data[4].m_Target
+      value: 
+      objectReference: {fileID: 3548914997518892902}
     - target: {fileID: 1258260166024034744, guid: 303be6cf29009b84fab3624b3503f81c, type: 3}
       propertyPath: m_Name
       value: Loop2

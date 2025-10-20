@@ -16746,17 +16746,6 @@ MonoBehaviour:
   m_SocketScaleMode: 0
   m_FixedScale: {x: 1, y: 1, z: 1}
   m_TargetBoundsSize: {x: 1, y: 1, z: 1}
---- !u!114 &955672201 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2129243276706980273, guid: 36a9168fc5c4c7e48ba37dda7b6f2a71, type: 3}
-  m_PrefabInstance: {fileID: 3038681293544201213}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 500b07b1dfba4dd4cb0cbbda54c6dfad, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ScenarioStateChecker
 --- !u!1 &959144454
 GameObject:
   m_ObjectHideFlags: 0
@@ -46882,78 +46871,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 34759220476288305, guid: 36a9168fc5c4c7e48ba37dda7b6f2a71, type: 3}
-      propertyPath: checkpoints.Array.data[0].onCheckpointReached.m_PersistentCalls.m_Calls.Array.size
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 34759220476288305, guid: 36a9168fc5c4c7e48ba37dda7b6f2a71, type: 3}
-      propertyPath: checkpoints.Array.data[1].onCheckpointReached.m_PersistentCalls.m_Calls.Array.size
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 34759220476288305, guid: 36a9168fc5c4c7e48ba37dda7b6f2a71, type: 3}
-      propertyPath: checkpoints.Array.data[2].onCheckpointReached.m_PersistentCalls.m_Calls.Array.size
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 34759220476288305, guid: 36a9168fc5c4c7e48ba37dda7b6f2a71, type: 3}
-      propertyPath: checkpoints.Array.data[0].onCheckpointReached.m_PersistentCalls.m_Calls.Array.data[6].m_Mode
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 34759220476288305, guid: 36a9168fc5c4c7e48ba37dda7b6f2a71, type: 3}
-      propertyPath: checkpoints.Array.data[1].onCheckpointReached.m_PersistentCalls.m_Calls.Array.data[4].m_Mode
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 34759220476288305, guid: 36a9168fc5c4c7e48ba37dda7b6f2a71, type: 3}
-      propertyPath: checkpoints.Array.data[2].onCheckpointReached.m_PersistentCalls.m_Calls.Array.data[4].m_Mode
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 34759220476288305, guid: 36a9168fc5c4c7e48ba37dda7b6f2a71, type: 3}
-      propertyPath: checkpoints.Array.data[0].onCheckpointReached.m_PersistentCalls.m_Calls.Array.data[6].m_Target
-      value: 
-      objectReference: {fileID: 955672201}
-    - target: {fileID: 34759220476288305, guid: 36a9168fc5c4c7e48ba37dda7b6f2a71, type: 3}
-      propertyPath: checkpoints.Array.data[1].onCheckpointReached.m_PersistentCalls.m_Calls.Array.data[4].m_Target
-      value: 
-      objectReference: {fileID: 955672201}
-    - target: {fileID: 34759220476288305, guid: 36a9168fc5c4c7e48ba37dda7b6f2a71, type: 3}
-      propertyPath: checkpoints.Array.data[2].onCheckpointReached.m_PersistentCalls.m_Calls.Array.data[4].m_Target
-      value: 
-      objectReference: {fileID: 955672201}
-    - target: {fileID: 34759220476288305, guid: 36a9168fc5c4c7e48ba37dda7b6f2a71, type: 3}
-      propertyPath: checkpoints.Array.data[0].onCheckpointReached.m_PersistentCalls.m_Calls.Array.data[6].m_MethodName
-      value: BoolStateFalse
-      objectReference: {fileID: 0}
-    - target: {fileID: 34759220476288305, guid: 36a9168fc5c4c7e48ba37dda7b6f2a71, type: 3}
-      propertyPath: checkpoints.Array.data[1].onCheckpointReached.m_PersistentCalls.m_Calls.Array.data[4].m_MethodName
-      value: BoolStateFalse
-      objectReference: {fileID: 0}
-    - target: {fileID: 34759220476288305, guid: 36a9168fc5c4c7e48ba37dda7b6f2a71, type: 3}
-      propertyPath: checkpoints.Array.data[2].onCheckpointReached.m_PersistentCalls.m_Calls.Array.data[4].m_MethodName
-      value: BoolStateTrue
-      objectReference: {fileID: 0}
-    - target: {fileID: 34759220476288305, guid: 36a9168fc5c4c7e48ba37dda7b6f2a71, type: 3}
-      propertyPath: checkpoints.Array.data[0].onCheckpointReached.m_PersistentCalls.m_Calls.Array.data[6].m_TargetAssemblyTypeName
-      value: ScenarioStateChecker, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 34759220476288305, guid: 36a9168fc5c4c7e48ba37dda7b6f2a71, type: 3}
-      propertyPath: checkpoints.Array.data[1].onCheckpointReached.m_PersistentCalls.m_Calls.Array.data[4].m_TargetAssemblyTypeName
-      value: ScenarioStateChecker, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 34759220476288305, guid: 36a9168fc5c4c7e48ba37dda7b6f2a71, type: 3}
-      propertyPath: checkpoints.Array.data[2].onCheckpointReached.m_PersistentCalls.m_Calls.Array.data[4].m_TargetAssemblyTypeName
-      value: ScenarioStateChecker, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 34759220476288305, guid: 36a9168fc5c4c7e48ba37dda7b6f2a71, type: 3}
-      propertyPath: checkpoints.Array.data[0].onCheckpointReached.m_PersistentCalls.m_Calls.Array.data[6].m_Arguments.m_StringArgument
-      value: Anim
-      objectReference: {fileID: 0}
-    - target: {fileID: 34759220476288305, guid: 36a9168fc5c4c7e48ba37dda7b6f2a71, type: 3}
-      propertyPath: checkpoints.Array.data[1].onCheckpointReached.m_PersistentCalls.m_Calls.Array.data[4].m_Arguments.m_StringArgument
-      value: Anim
-      objectReference: {fileID: 0}
-    - target: {fileID: 34759220476288305, guid: 36a9168fc5c4c7e48ba37dda7b6f2a71, type: 3}
-      propertyPath: checkpoints.Array.data[2].onCheckpointReached.m_PersistentCalls.m_Calls.Array.data[4].m_Arguments.m_StringArgument
-      value: Anim
-      objectReference: {fileID: 0}
     - target: {fileID: 268403034016825142, guid: 36a9168fc5c4c7e48ba37dda7b6f2a71, type: 3}
       propertyPath: m_Camera
       value: 
@@ -47018,54 +46935,6 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 1962568126}
-    - target: {fileID: 6864219465869751834, guid: 36a9168fc5c4c7e48ba37dda7b6f2a71, type: 3}
-      propertyPath: OnFulfilled.m_PersistentCalls.m_Calls.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 6864219465869751834, guid: 36a9168fc5c4c7e48ba37dda7b6f2a71, type: 3}
-      propertyPath: OnFulfilled.m_PersistentCalls.m_Calls.Array.data[3].m_Mode
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6864219465869751834, guid: 36a9168fc5c4c7e48ba37dda7b6f2a71, type: 3}
-      propertyPath: OnFulfilled.m_PersistentCalls.m_Calls.Array.data[3].m_Target
-      value: 
-      objectReference: {fileID: 3038681293544201214}
-    - target: {fileID: 6864219465869751834, guid: 36a9168fc5c4c7e48ba37dda7b6f2a71, type: 3}
-      propertyPath: OnFulfilled.m_PersistentCalls.m_Calls.Array.data[3].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6864219465869751834, guid: 36a9168fc5c4c7e48ba37dda7b6f2a71, type: 3}
-      propertyPath: OnFulfilled.m_PersistentCalls.m_Calls.Array.data[3].m_MethodName
-      value: BoolStateFalse
-      objectReference: {fileID: 0}
-    - target: {fileID: 6864219465869751834, guid: 36a9168fc5c4c7e48ba37dda7b6f2a71, type: 3}
-      propertyPath: OnFulfilled.m_PersistentCalls.m_Calls.Array.data[3].m_TargetAssemblyTypeName
-      value: ScenarioStateChecker, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 6864219465869751834, guid: 36a9168fc5c4c7e48ba37dda7b6f2a71, type: 3}
-      propertyPath: OnFulfilled.m_PersistentCalls.m_Calls.Array.data[3].m_Arguments.m_BoolArgument
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6864219465869751834, guid: 36a9168fc5c4c7e48ba37dda7b6f2a71, type: 3}
-      propertyPath: OnFulfilled.m_PersistentCalls.m_Calls.Array.data[3].m_Arguments.m_StringArgument
-      value: Anim
-      objectReference: {fileID: 0}
-    - target: {fileID: 6864219465869751834, guid: 36a9168fc5c4c7e48ba37dda7b6f2a71, type: 3}
-      propertyPath: OnFulfilled.m_PersistentCalls.m_Calls.Array.data[3].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
-    - target: {fileID: 7302250291106371134, guid: 36a9168fc5c4c7e48ba37dda7b6f2a71, type: 3}
-      propertyPath: checkpoints.Array.data[0].onCheckpointReached.m_PersistentCalls.m_Calls.Array.data[6].m_Target
-      value: 
-      objectReference: {fileID: 3038681293544201215}
-    - target: {fileID: 7302250291106371134, guid: 36a9168fc5c4c7e48ba37dda7b6f2a71, type: 3}
-      propertyPath: checkpoints.Array.data[1].onCheckpointReached.m_PersistentCalls.m_Calls.Array.data[4].m_Target
-      value: 
-      objectReference: {fileID: 3038681293544201215}
-    - target: {fileID: 7302250291106371134, guid: 36a9168fc5c4c7e48ba37dda7b6f2a71, type: 3}
-      propertyPath: checkpoints.Array.data[2].onCheckpointReached.m_PersistentCalls.m_Calls.Array.data[4].m_Target
-      value: 
-      objectReference: {fileID: 3038681293544201215}
     - target: {fileID: 7769460306634983563, guid: 36a9168fc5c4c7e48ba37dda7b6f2a71, type: 3}
       propertyPath: m_Camera
       value: 
@@ -47079,22 +46948,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 36a9168fc5c4c7e48ba37dda7b6f2a71, type: 3}
---- !u!114 &3038681293544201214 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8692272574530972350, guid: 36a9168fc5c4c7e48ba37dda7b6f2a71, type: 3}
-  m_PrefabInstance: {fileID: 3038681293544201213}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 500b07b1dfba4dd4cb0cbbda54c6dfad, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ScenarioStateChecker
---- !u!1 &3038681293544201215 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3548914997518892902, guid: 36a9168fc5c4c7e48ba37dda7b6f2a71, type: 3}
-  m_PrefabInstance: {fileID: 3038681293544201213}
-  m_PrefabAsset: {fileID: 0}
 --- !u!33 &3042506400520238447
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -51575,10 +51428,6 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 1962568126}
-    - target: {fileID: 7382686644246254183, guid: 5951c9e6bbea765419dc772c0db1a85d, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7703688244587816616, guid: 5951c9e6bbea765419dc772c0db1a85d, type: 3}
       propertyPath: m_Name
       value: SkenarioLarutan2
